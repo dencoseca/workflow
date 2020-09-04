@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import StateContext from './StateContext'
 import DispatchContext from './DispatchContext'
 import { useImmerReducer } from 'use-immer'
@@ -27,6 +27,8 @@ function App() {
         break
       case 'logout':
         draft.isLoggedIn = false
+        break
+      default:
         break
     }
   }
