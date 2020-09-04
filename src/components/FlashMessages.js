@@ -5,7 +5,7 @@ function FlashMessages(props) {
     <div className="floating-alerts">
       {props.messages.map((msg, index) => {
         return (
-          <div key={index} className={`notification is-light is-${msg.color} has-text-centered floating-alert`}>
+          <div key={index} className={`notification is-${msg.color} has-text-centered floating-alert`}>
             {msg.value}
           </div>
         )

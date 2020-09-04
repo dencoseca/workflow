@@ -11,12 +11,12 @@ function HeaderLoggedIn() {
   }
 
   return (
-    <>
+    <div className="header-logged-in">
       <h2>Logged in as {appState.user.username}</h2>
       <button onClick={e => logOut()} className="button is-light ml-3">
         Log out
       </button>
-    </>
+    </div>
   )
 }
 
