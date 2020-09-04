@@ -6,10 +6,14 @@ function HeaderLoggedIn() {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
 
+  function logOut() {
+    appDispatch({ type: 'logout' })
+  }
+
   return (
     <>
       <h2>Logged in as {appState.user.username}</h2>
-      <button onClick={appDispatch({ type: 'logout' })} className="button is-light ml-3">
+      <button onClick={e => logOut()} className="button is-light ml-3">
         Log out
       </button>
     </>

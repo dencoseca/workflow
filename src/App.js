@@ -47,7 +47,7 @@ function App() {
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
         <Header />
-        <Welcome />
+        {state.loggedIn ? null : <Welcome />}
       </DispatchContext.Provider>
     </StateContext.Provider>
   )
