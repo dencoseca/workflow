@@ -1,10 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import axios from 'axios'
+import DispatchContext from '../DispatchContext'
 
 function HeaderLoggedOut() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [signUpRequestCount, setSignUpRequestCount] = useState(0)
   const [loginRequestCount, setLoginRequestCount] = useState(0)
+
+  const appDispatch = useContext(DispatchContext)
+
+  useEffect(() => {
+    if (signUpRequestCount > 0) {
+      const ourRequest = axios.CancelToken.source()
+
+      async function signUp() {
+        try {
+          const response = await axios.post('http://localhost:8080/user', { username, password }, { cancelToken: ourRequest.token })
+          appDispatch({ type: 'login', value: response.data })
+        } catch (e) {
+          console.log('There was a problem or the request was cancelled.')
+        }
+      }
+      signUp()
+      return () => {
+        ourRequest.cancel()
+      }
+    }
+  }, [signUpRequestCount])
 
   return (
     <div className="header-logged-out">

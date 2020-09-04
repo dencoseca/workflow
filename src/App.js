@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import StateContext from './StateContext'
 import DispatchContext from './DispatchContext'
 import { useImmerReducer } from 'use-immer'
@@ -7,26 +7,24 @@ import { useImmerReducer } from 'use-immer'
 import Header from './components/Header'
 import Welcome from './components/Welcome'
 
-import Axios from 'axios'
-Axios.defaults.baseURL = process.env.BACKENDURL || ''
-
 function App() {
   const initialState = {
-    isLoggedIn: false,
+    loggedIn: Boolean(localStorage.getItem('workflowUserId')),
     user: {
-      username: '',
-      userId: ''
+      _id: '',
+      username: ''
     }
   }
 
   function reducer(draft, action) {
     switch (action.type) {
       case 'login':
-        draft.isLoggedIn = true
-        draft.user = action.data
+        draft.loggedIn = true
+        draft.user._id = action.value._id
+        draft.user.username = action.value.username
         break
       case 'logout':
-        draft.isLoggedIn = false
+        draft.loggedIn = false
         break
       default:
         break
@@ -34,6 +32,16 @@ function App() {
   }
 
   const [state, dispatch] = useImmerReducer(reducer, initialState)
+
+  useEffect(() => {
+    if (state.loggedIn) {
+      localStorage.setItem('workflowUserId', state.user._id)
+      localStorage.setItem('workflowUsername', state.user.username)
+    } else {
+      localStorage.removeItem('workflowUserId')
+      localStorage.removeItem('workflowUsername')
+    }
+  }, [state.loggedIn])
 
   return (
     <StateContext.Provider value={state}>

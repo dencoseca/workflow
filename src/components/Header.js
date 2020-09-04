@@ -5,6 +5,7 @@ import StateContext from '../StateContext'
 
 function Header() {
   const appState = useContext(StateContext)
+  const headerContent = appState.loggedIn ? <HeaderLoggedIn /> : <HeaderLoggedOut />
 
   return (
     <>
@@ -24,7 +25,7 @@ function Header() {
 
           <div id="navbarBasicExample" className="navbar-menu">
             <div className="navbar-end">
-              <div className="navbar-item">{appState.isLoggedIn ? <HeaderLoggedIn /> : <HeaderLoggedOut />}</div>
+              <div className="navbar-item">{headerContent}</div>
             </div>
           </div>
         </div>
