@@ -6,13 +6,15 @@ import { useImmerReducer } from 'use-immer'
 // COMPONENTS
 import Header from './components/Header'
 import Welcome from './components/Welcome'
+import FlashMessages from './components/FlashMessages'
 
 function App() {
   const initialState = {
     loggedIn: Boolean(localStorage.getItem('workflowUserId')),
+    flashMessages: [],
     user: {
-      _id: '',
-      username: ''
+      _id: localStorage.getItem('workflowUserId') || '',
+      username: localStorage.getItem('workflowUsername') || ''
     }
   }
 
@@ -26,6 +28,9 @@ function App() {
       case 'logout':
         draft.loggedIn = false
         break
+      case 'flashMessage':
+        draft.flashMessages.push({ value: action.value, color: action.color })
+        return
       default:
         break
     }
@@ -46,6 +51,7 @@ function App() {
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
+        <FlashMessages messages={state.flashMessages} />
         <Header />
         {state.loggedIn ? null : <Welcome />}
       </DispatchContext.Provider>

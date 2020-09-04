@@ -17,7 +17,11 @@ function HeaderLoggedOut() {
       async function signUp() {
         try {
           const response = await axios.post('http://localhost:8080/user', { username, password }, { cancelToken: ourRequest.token })
-          appDispatch({ type: 'login', value: response.data })
+          if (response.data.message) {
+            appDispatch({ type: 'flashMessage', value: response.data.message, color: 'danger' })
+          } else {
+            appDispatch({ type: 'login', value: response.data })
+          }
         } catch (e) {
           console.log('There was a problem or the request was cancelled.')
         }
