@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 function HeaderLoggedOut() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [signUpRequestCount, setSignUpRequestCount] = useState(0)
+  const [loginRequestCount, setLoginRequestCount] = useState(0)
 
   return (
     <div className="header-logged-out">
@@ -15,12 +17,12 @@ function HeaderLoggedOut() {
         </div>
       </form>
       <div className="buttons">
-        <a href="/" className="button is-primary">
+        <button onClick={e => setSignUpRequestCount(prev => prev + 1)} className="button is-primary">
           <strong>Sign up</strong>
-        </a>
-        <a href="/" className="button is-light">
+        </button>
+        <button onClick={e => setLoginRequestCount(prev => prev + 1)} className="button is-light">
           Log in
-        </a>
+        </button>
       </div>
     </div>
   )
