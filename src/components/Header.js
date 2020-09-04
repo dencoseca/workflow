@@ -1,7 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import HeaderLoggedOut from './HeaderLoggedOut'
+import HeaderLoggedIn from './HeaderLoggedIn'
+import StateContext from '../StateContext'
 
 function Header() {
+  const appState = useContext(StateContext)
+
   return (
     <>
       <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -20,9 +24,7 @@ function Header() {
 
           <div id="navbarBasicExample" className="navbar-menu">
             <div className="navbar-end">
-              <div className="navbar-item">
-                <HeaderLoggedOut />
-              </div>
+              <div className="navbar-item">{appState.isLoggedIn ? <HeaderLoggedIn /> : <HeaderLoggedOut />}</div>
             </div>
           </div>
         </div>
