@@ -7,6 +7,7 @@ import { useImmerReducer } from 'use-immer'
 import Header from './components/Header'
 import Welcome from './components/Welcome'
 import FlashMessages from './components/FlashMessages'
+import Home from './components/Home'
 
 function App() {
   const initialState = {
@@ -53,7 +54,7 @@ function App() {
       <DispatchContext.Provider value={dispatch}>
         <FlashMessages messages={state.flashMessages} />
         <Header />
-        {state.loggedIn ? null : <Welcome />}
+        {state.loggedIn ? <Home /> : <Welcome />}
       </DispatchContext.Provider>
     </StateContext.Provider>
   )
