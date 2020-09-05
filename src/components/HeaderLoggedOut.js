@@ -59,12 +59,12 @@ function HeaderLoggedOut() {
   return (
     <div className="header-logged-out">
       <form>
-        <div className="control mr-2">
-          <input onChange={e => setUsername(e.target.value)} value={username} className="input" type="text" name="username" placeholder="username"></input>
-        </div>
-        <div className="control mr-2">
-          <input onChange={e => setPassword(e.target.value)} value={password} className="input" type="password" name="password" placeholder="password"></input>
-        </div>
+          <div className="control mr-2">
+            <input onChange={e => setUsername(e.target.value)} value={username} className="input" type="text" name="username" placeholder="username"></input>
+          </div>
+          <div className="control mr-2">
+            <input onChange={e => setPassword(e.target.value)} value={password} className="input" type="password" name="password" placeholder="password"></input>
+          </div>
       </form>
       <div className="buttons">
         <button onClick={e => setSignUpRequestCount(prev => prev + 1)} className="button is-primary">

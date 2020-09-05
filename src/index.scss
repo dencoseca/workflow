@@ -17,6 +17,14 @@
   align-items: center;
 }
 
+.home {
+  &--project-list {
+    &-item {
+      font-weight: bold;
+    }
+  }
+}
+
 .floating-alert {
   font-weight: bold;
   display: none;
