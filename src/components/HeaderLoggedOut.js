@@ -16,7 +16,7 @@ function HeaderLoggedOut() {
 
       async function signUp() {
         try {
-          const response = await axios.post('http://localhost:8080/user', { username, password }, { cancelToken: ourRequest.token })
+          const response = await axios.post('http://localhost:8080/user/signup', { username, password }, { cancelToken: ourRequest.token })
           if (response.data.message) {
             appDispatch({ type: 'flashMessage', value: response.data.message, color: 'danger' })
           } else {
@@ -32,6 +32,29 @@ function HeaderLoggedOut() {
       }
     }
   }, [signUpRequestCount])
+
+  useEffect(() => {
+    if (loginRequestCount > 0) {
+      const ourRequest = axios.CancelToken.source()
+
+      async function login() {
+        try {
+          const response = await axios.post('http://localhost:8080/user/login', { username, password }, { cancelToken: ourRequest.token })
+          if (response.data.message) {
+            appDispatch({ type: 'flashMessage', value: response.data.message, color: 'danger' })
+          } else {
+            appDispatch({ type: 'login', value: response.data })
+          }
+        } catch (e) {
+          console.log('There was a problem or the request was cancelled.')
+        }
+      }
+      login()
+      return () => {
+        ourRequest.cancel()
+      }
+    }
+  }, [loginRequestCount])
 
   return (
     <div className="header-logged-out">
