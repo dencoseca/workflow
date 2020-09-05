@@ -32,6 +32,10 @@
       }
     }
 
+    &-item-name {
+      cursor: pointer;
+    }
+
     &-item-delete {
       cursor: pointer;
       display: none;

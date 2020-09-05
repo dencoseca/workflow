@@ -3,7 +3,6 @@ import Page from './Page'
 import StateContext from '../StateContext'
 import DispatchContext from '../DispatchContext'
 import axios from 'axios'
-import FlashMessages from './FlashMessages'
 
 function Home() {
   const appState = useContext(StateContext)
@@ -77,7 +76,7 @@ function Home() {
           appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
         } else if (response.data.successMessage) {
           setFetchProjectsRequest(prev => prev + 1)
-          appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
+          appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'warning' })
         }
       } catch (e) {
         console.log('There was a problem or the request was cancelled.')
@@ -104,8 +103,11 @@ function Home() {
               </div>
             ))}
             <form onSubmit={handleNewProjectRequest} className="mt-3">
-              <div className="control">
-                <input onChange={e => setNewProjectName(e.target.value)} value={newProjectName} className="home--project-list-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new project"></input>
+              <div className="field">
+                <div className="control">
+                  <input onChange={e => setNewProjectName(e.target.value)} value={newProjectName} className="home--project-list-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new project"></input>
+                </div>
+                {newProjectName ? <p className="help is-info">press ENTER to create a new project</p> : null}
               </div>
             </form>
           </div>
