@@ -14,7 +14,7 @@ function App() {
     loggedIn: Boolean(localStorage.getItem('workflowUserId')),
     flashMessages: [],
     user: {
-      _id: localStorage.getItem('workflowUserId') || '',
+      userId: localStorage.getItem('workflowUserId') || '',
       username: localStorage.getItem('workflowUsername') || ''
     }
   }
@@ -23,7 +23,7 @@ function App() {
     switch (action.type) {
       case 'login':
         draft.loggedIn = true
-        draft.user._id = action.value._id
+        draft.user.userId = action.value._id
         draft.user.username = action.value.username
         break
       case 'logout':
@@ -41,7 +41,7 @@ function App() {
 
   useEffect(() => {
     if (state.loggedIn) {
-      localStorage.setItem('workflowUserId', state.user._id)
+      localStorage.setItem('workflowUserId', state.user.userId)
       localStorage.setItem('workflowUsername', state.user.username)
     } else {
       localStorage.removeItem('workflowUserId')
