@@ -17,8 +17,8 @@ function HeaderLoggedOut() {
       async function signUp() {
         try {
           const response = await axios.post('http://localhost:8080/user/signup', { username, password }, { cancelToken: ourRequest.token })
-          if (response.data.message) {
-            appDispatch({ type: 'flashMessage', value: response.data.message, color: 'danger' })
+          if (response.data.errorMessage) {
+            appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
           } else {
             appDispatch({ type: 'login', value: response.data })
           }
@@ -40,8 +40,8 @@ function HeaderLoggedOut() {
       async function login() {
         try {
           const response = await axios.post('http://localhost:8080/user/login', { username, password }, { cancelToken: ourRequest.token })
-          if (response.data.message) {
-            appDispatch({ type: 'flashMessage', value: response.data.message, color: 'danger' })
+          if (response.data.errorMessage) {
+            appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
           } else {
             appDispatch({ type: 'login', value: response.data })
           }

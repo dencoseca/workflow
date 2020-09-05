@@ -21,6 +21,24 @@
   &--project-list {
     &-item {
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:hover {
+        .home--project-list-item-delete {
+          display: block;
+        }
+      }
+    }
+
+    &-item-delete {
+      cursor: pointer;
+      display: none;
+    }
+
+    &-input {
+      border: none;
     }
   }
 }
