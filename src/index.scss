@@ -43,7 +43,19 @@
 
     &-input {
       border: none;
+
+      &:focus {
+        border-bottom: 1px solid rgb(187, 187, 187);
+      }
     }
+  }
+
+  &--taskview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    border-radius: 10px;
   }
 }
 

@@ -3,10 +3,12 @@ import Page from './Page'
 import StateContext from '../StateContext'
 import DispatchContext from '../DispatchContext'
 import axios from 'axios'
+import LoadingDotsIcon from './LoadingDotsIcon'
 
 function Home() {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
+  const [projectsAreLoading, setProjectsAreLoading] = useState(true)
   const [projects, setProjects] = useState([])
   const [newProjectName, setNewProjectName] = useState('')
   const [newProjectRequest, setNewProjectRequest] = useState(0)
@@ -22,6 +24,7 @@ function Home() {
           appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
         } else {
           setProjects(response.data)
+          setProjectsAreLoading(false)
         }
       } catch (e) {
         console.log('There was a problem or the request was cancelled.')
@@ -93,25 +96,33 @@ function Home() {
       <div className="home mt-5">
         <div className="columns">
           <div className="home--project-list column is-one-quarter">
-            <h3 className="home--project-list-title subtitle is-4 mb-3">
+            <h3 className="home--project-list-title subtitle is-3 mb-6">
               <strong>{appState.user.username}'s</strong> Projects
             </h3>
-            {projects.map(project => (
-              <div className="home--project-list-item mt-1" key={project._id}>
-                <span className="home--project-list-item-name">{project.name}</span>
-                <i onClick={e => handleProjectDelete(e)} className="home--project-list-item-delete fa fa-trash has-text-danger" data-project={project._id}></i>
-              </div>
-            ))}
+            {projectsAreLoading ? (
+              <LoadingDotsIcon />
+            ) : (
+              projects.map(project => (
+                <div className="home--project-list-item mt-1" key={project._id}>
+                  <span className="home--project-list-item-name">{project.name}</span>
+                  <i onClick={e => handleProjectDelete(e)} className="home--project-list-item-delete fa fa-trash has-text-danger" data-project={project._id}></i>
+                </div>
+              ))
+            )}
             <form onSubmit={handleNewProjectRequest} className="mt-3">
               <div className="field">
                 <div className="control">
                   <input onChange={e => setNewProjectName(e.target.value)} value={newProjectName} className="home--project-list-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new project"></input>
                 </div>
-                {newProjectName ? <p className="help is-info">press ENTER to create a new project</p> : null}
+                {newProjectName && <p className="help is-info">press ENTER to create a new project</p>}
               </div>
             </form>
           </div>
-          <div className="column is-three-quarters">{/* show project tasks here */}</div>
+          <div className="column is-three-quarters">
+            <div className="home--taskview has-background-light">
+              <h3 className="subtitle is-4">Choose a project or create a new one to start adding tasks...</h3>
+            </div>
+          </div>
         </div>
       </div>
     </Page>
