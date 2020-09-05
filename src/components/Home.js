@@ -97,7 +97,7 @@ function Home() {
         <div className="columns">
           <div className="home--project-list column is-one-quarter">
             <h3 className="home--project-list-title subtitle is-3 mb-6">
-              <strong>{appState.user.username}'s</strong> Projects
+              <strong className="has-text-primary">{appState.user.username}'s</strong> Projects
             </h3>
             {projectsAreLoading ? (
               <LoadingDotsIcon />
@@ -114,7 +114,7 @@ function Home() {
                 <div className="control">
                   <input onChange={e => setNewProjectName(e.target.value)} value={newProjectName} className="home--project-list-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new project"></input>
                 </div>
-                {newProjectName && <p className="help is-info">press ENTER to create a new project</p>}
+                {newProjectName && <p className="help is-info">press ENTER to create the new project</p>}
               </div>
             </form>
           </div>
