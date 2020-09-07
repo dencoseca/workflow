@@ -49,12 +49,21 @@
 }
 
 .taskview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 500px;
   border-radius: 10px;
   box-shadow: inset 0px 0px 10px 5px rgba(0, 0, 0, 0.06);
+
+  &--no-project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  &--project {
+    padding: 30px;
+  }
 }
 
 // FLOATING ALERTS
