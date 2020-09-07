@@ -14,6 +14,7 @@ function Home() {
   const [newProjectName, setNewProjectName] = useState('')
   const [newProjectRequest, setNewProjectRequest] = useState(0)
   const [fetchProjectsRequest, setFetchProjectsRequest] = useState(0)
+  const [selectedProject, setSelectedProject] = useState('')
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
@@ -108,7 +109,9 @@ function Home() {
                   <span className="icon">
                     <i onClick={e => handleProjectDelete(e)} className="home--project-list-item-delete fa fa-trash has-text-danger" data-project={project._id}></i>
                   </span>
-                  <span className="home--project-list-item-name">{project.name}</span>
+                  <span onClick={e => setSelectedProject(project._id)} className="home--project-list-item-name">
+                    {project.name}
+                  </span>
                 </div>
               ))
             )}
@@ -122,7 +125,7 @@ function Home() {
             </form>
           </div>
           <div className="column is-three-quarters">
-            <ProjectTaskView />
+            <ProjectTaskView projectId={selectedProject} />
           </div>
         </div>
       </div>
