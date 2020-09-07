@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import DispatchContext from '../DispatchContext'
 
-function ProjectTaskView(props) {
+function ProjectPanel(props) {
   const appDispatch = useContext(DispatchContext)
   const projectId = props.projectId
   const [project, setProject] = useState({})
@@ -96,4 +96,4 @@ function ProjectTaskView(props) {
   )
 }
 
-export default ProjectTaskView
+export default ProjectPanel

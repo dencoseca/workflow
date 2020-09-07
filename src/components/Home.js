@@ -4,7 +4,7 @@ import StateContext from '../StateContext'
 import DispatchContext from '../DispatchContext'
 import axios from 'axios'
 import LoadingDotsIcon from './LoadingDotsIcon'
-import ProjectTaskView from './ProjectTaskView.js'
+import ProjectPanel from './ProjectPanel.js'
 
 function Home() {
   const appState = useContext(StateContext)
@@ -88,6 +88,10 @@ function Home() {
       }
     }
     deleteProject()
+    console.log(selectedProject)
+    if (selectedProject === e.target.dataset.project) {
+      setSelectedProject('')
+    }
     return () => {
       ourRequest.cancel()
     }
@@ -125,7 +129,7 @@ function Home() {
             </form>
           </div>
           <div className="column is-three-quarters">
-            <ProjectTaskView projectId={selectedProject} />
+            <ProjectPanel projectId={selectedProject} />
           </div>
         </div>
       </div>
