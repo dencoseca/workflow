@@ -66,6 +66,16 @@
   }
 }
 
+.task {
+  display: flex;
+  align-items: center;
+
+  &--value {
+    margin-right: auto;
+  }
+
+}
+
 // FLOATING ALERTS
 .floating-alert {
   font-weight: bold;

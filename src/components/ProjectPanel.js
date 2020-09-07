@@ -3,6 +3,7 @@ import axios from 'axios'
 import DispatchContext from '../DispatchContext'
 import LoadingDotsIcon from './LoadingDotsIcon'
 import CenteredInContainer from './CenteredInContainer'
+import Task from './Task'
 
 function ProjectPanel(props) {
   const appDispatch = useContext(DispatchContext)
@@ -82,12 +83,7 @@ function ProjectPanel(props) {
         ) : (
           <div className="taskview--project">
             <h2 className="taskview--project-title title is-3">{project.name}</h2>
-            {projectTasks.length > 0 &&
-              projectTasks.map(task => (
-                <div className="taskview--task" key={task._id}>
-                  <span className="taskview--task-value">{task.value}</span>
-                </div>
-              ))}
+            {projectTasks.length > 0 && projectTasks.map(task => <Task key={task._id} task={task} />)}
             <form onSubmit={handleNewTaskRequest} className="mt-3">
               <div className="field">
                 <div className="control">
