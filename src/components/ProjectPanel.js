@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import DispatchContext from '../DispatchContext'
+import LoadingDotsIcon from './LoadingDotsIcon'
+import CenteredInContainer from './CenteredInContainer'
 
 function ProjectPanel(props) {
   const appDispatch = useContext(DispatchContext)
@@ -9,9 +11,11 @@ function ProjectPanel(props) {
   const [projectTasks, setProjectTasks] = useState([])
   const [newTaskValue, setNewTaskValue] = useState('')
   const [newTaskRequest, setNewTaskRequest] = useState(0)
+  const [projectIsLoading, setProjectIsLoading] = useState(true)
 
   useEffect(() => {
     if (projectId) {
+      setProjectIsLoading(true)
       const ourRequest = axios.CancelToken.source()
       async function fetchProject() {
         try {
@@ -21,6 +25,7 @@ function ProjectPanel(props) {
           } else {
             setProject(response.data)
             setProjectTasks(response.data.tasks)
+            setProjectIsLoading(false)
           }
         } catch (e) {
           console.log('There was a problem or the request was cancelled.')
@@ -70,23 +75,29 @@ function ProjectPanel(props) {
   return (
     <div className="taskview">
       {projectId ? (
-        <div className="taskview--project">
-          <h2 className="taskview--project-title title is-3">{project.name}</h2>
-          {projectTasks.length > 0 &&
-            projectTasks.map(task => (
-              <div className="taskview--task" key={task._id}>
-                <span className="taskview--task-value">{task.value}</span>
+        projectIsLoading ? (
+          <CenteredInContainer>
+            <LoadingDotsIcon />
+          </CenteredInContainer>
+        ) : (
+          <div className="taskview--project">
+            <h2 className="taskview--project-title title is-3">{project.name}</h2>
+            {projectTasks.length > 0 &&
+              projectTasks.map(task => (
+                <div className="taskview--task" key={task._id}>
+                  <span className="taskview--task-value">{task.value}</span>
+                </div>
+              ))}
+            <form onSubmit={handleNewTaskRequest} className="mt-3">
+              <div className="field">
+                <div className="control">
+                  <input onChange={e => setNewTaskValue(e.target.value)} value={newTaskValue} className="taskview--new-task-input quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new task"></input>
+                </div>
+                {newTaskValue && <p className="help is-info">press ENTER to create the new task</p>}
               </div>
-            ))}
-          <form onSubmit={handleNewTaskRequest} className="mt-3">
-            <div className="field">
-              <div className="control">
-                <input onChange={e => setNewTaskValue(e.target.value)} value={newTaskValue} className="taskview--new-task-input quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new task"></input>
-              </div>
-              {newTaskValue && <p className="help is-info">press ENTER to create the new task</p>}
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
+        )
       ) : (
         <div className="taskview--no-project">
           <h3 className="subtitle is-4">Choose a project or create a new one to start adding tasks...</h3>

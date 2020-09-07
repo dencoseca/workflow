@@ -163,3 +163,11 @@
     border-bottom: 1px solid rgb(187, 187, 187);
   }
 }
+
+.centered-in-container {
+  height: inherit;
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

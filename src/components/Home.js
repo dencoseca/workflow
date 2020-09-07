@@ -54,6 +54,7 @@ function Home() {
               setProjects(prev => [...prev, response.data])
               appDispatch({ type: 'flashMessage', value: 'Project successfully created', color: 'success' })
               setNewProjectName('')
+              setSelectedProject(response.data._id)
             }
           } catch (e) {
             console.log('There was a problem or the request was cancelled.')
@@ -104,7 +105,7 @@ function Home() {
               <strong className="has-text-primary">{appState.user.username}'s</strong> Projects
             </h3>
             {projectsAreLoading ? (
-              <LoadingDotsIcon />
+                <LoadingDotsIcon />
             ) : (
               projects.map(project => (
                 <div className="home--project-list-item mt-1" key={project._id}>
