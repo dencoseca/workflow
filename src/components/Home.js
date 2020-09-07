@@ -4,6 +4,7 @@ import StateContext from '../StateContext'
 import DispatchContext from '../DispatchContext'
 import axios from 'axios'
 import LoadingDotsIcon from './LoadingDotsIcon'
+import ProjectTaskView from './ProjectTaskView.js'
 
 function Home() {
   const appState = useContext(StateContext)
@@ -121,9 +122,7 @@ function Home() {
             </form>
           </div>
           <div className="column is-three-quarters">
-            <div className="home--taskview has-background-light">
-              <h3 className="subtitle is-4">Choose a project or create a new one to start adding tasks...</h3>
-            </div>
+            <ProjectTaskView />
           </div>
         </div>
       </div>
