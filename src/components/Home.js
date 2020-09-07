@@ -74,24 +74,22 @@ function Home() {
 
   function handleProjectDelete(e) {
     const ourRequest = axios.CancelToken.source()
+    const clickedProjectId = e.target.dataset.project
     async function deleteProject() {
       try {
-        const response = await axios.post('http://localhost:8080/project/delete', { projectId: e.target.dataset.project }, { cancelToken: ourRequest.token })
+        const response = await axios.post('http://localhost:8080/project/delete', { projectId: clickedProjectId }, { cancelToken: ourRequest.token })
         if (response.data.errorMessage) {
           appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
         } else if (response.data.successMessage) {
           setFetchProjectsRequest(prev => prev + 1)
           appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'warning' })
+          selectedProject === clickedProjectId && setSelectedProject('')
         }
       } catch (e) {
         console.log('There was a problem or the request was cancelled.')
       }
     }
     deleteProject()
-    console.log(selectedProject)
-    if (selectedProject === e.target.dataset.project) {
-      setSelectedProject('')
-    }
     return () => {
       ourRequest.cancel()
     }
