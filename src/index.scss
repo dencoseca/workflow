@@ -57,7 +57,23 @@
   }
 
   &--project {
-    padding: 30px;
+    padding: 40px 30px 30px 45px;
+  }
+
+  &--new-task-select {
+    height: 2.5rem;
+    border: none;
+    font-size: 1rem;
+    color: rgb(147, 147, 147);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &--new-task-button {
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -173,6 +189,10 @@
 // GENERAL STYLES
 .quiet-input {
   border: none;
+
+  &::placeholder {
+    color: rgb(147, 147, 147);
+  }
 
   &:focus {
     border-bottom: 1px solid rgb(187, 187, 187);

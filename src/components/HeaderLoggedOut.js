@@ -76,7 +76,7 @@ function HeaderLoggedOut() {
         <button onClick={e => setSignUpRequestCount(prev => prev + 1)} className="button is-primary">
           <strong>Sign up</strong>
         </button>
-        <button onClick={e => setLoginRequestCount(prev => prev + 1)} className="button is-light">
+        <button onClick={e => setLoginRequestCount(prev => prev + 1)} className="button is-primary is-outlined">
           Log in
         </button>
       </div>

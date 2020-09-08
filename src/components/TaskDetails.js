@@ -13,7 +13,7 @@ function TaskDetails(props) {
       categoryColor = 'warning'
       break
     case 'Content':
-      categoryColor = 'primary'
+      categoryColor = 'light'
       break
     case 'Functionality':
       categoryColor = 'danger'
@@ -27,7 +27,7 @@ function TaskDetails(props) {
       statusColor = 'link'
       break
     case 'Implementing':
-      statusColor = 'primary'
+      statusColor = 'warning'
       break
     case 'Reviewing':
       statusColor = 'danger'

@@ -108,44 +108,44 @@ function ProjectPanel(props) {
         ) : (
           <div className="taskview--project">
             <h2 className="taskview--project-title title is-3">{project.name}</h2>
-            {projectTasks.length > 0 && projectTasks.map(task => <TaskDetails task={task} handleDeleteTaskClick={handleDeleteTaskClick} />)}
+            {projectTasks.length > 0 && projectTasks.map(task => <TaskDetails key={task._id} task={task} handleDeleteTaskClick={handleDeleteTaskClick} />)}
             <form className="taskview--new-task-form" onSubmit={handleNewTaskRequest} className="mt-3">
               <div className="field is-horizontal">
                 <div className="field-body">
                   <div className="field">
                     <div className="control">
-                      <input onChange={e => setTaskValue(e.target.value)} value={taskValue} className="taskview--new-task-value quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new task"></input>
-                    </div>
-                    {taskValue && <p className="help is-info">press ENTER to create the new task</p>}
-                  </div>
-                  <div className="field is-narrow taskview--new-task-category">
-                    <div className="control">
-                      <div className="select">
-                        <select onChange={e => setTaskCategory(e.target.value)} defaultValue="category">
-                          <option value="category" disabled hidden>
-                            Category
-                          </option>
-                          <option value="Setup">Setup</option>
-                          <option value="Design">Design</option>
-                          <option value="Content">Content</option>
-                          <option value="Functionality">Functionality</option>
-                        </select>
-                      </div>
+                      <input onChange={e => setTaskValue(e.target.value)} value={taskValue} className="taskview--new-task-value quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Describe a new task"></input>
                     </div>
                   </div>
-                  <div className="field is-narrow taskview--new-task-category">
+                  <div className="field is-narrow">
                     <div className="control">
-                      <div className="select">
-                        <select onChange={e => setTaskStatus(e.target.value)} defaultValue="status">
-                          <option value="status" disabled hidden>
-                            Status
-                          </option>
-                          <option value="Planning">Planning</option>
-                          <option value="Implementing">Implementing</option>
-                          <option value="Reviewing">Reviewing</option>
-                          <option value="Complete">Complete</option>
-                        </select>
-                      </div>
+                      <select className="taskview--new-task-select" defaultValue="category" onChange={e => setTaskCategory(e.target.value)}>
+                        <option value="category" hidden>
+                          Category
+                        </option>
+                        <option value="Setup">Setup</option>
+                        <option value="Design">Design</option>
+                        <option value="Content">Content</option>
+                        <option value="Functionality">Functionality</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="field is-narrow">
+                    <div className="control">
+                      <select className="taskview--new-task-select" defaultValue="status" onChange={e => setTaskStatus(e.target.value)}>
+                        <option value="status" hidden>
+                          Status
+                        </option>
+                        <option value="Planning">Planning</option>
+                        <option value="Implementing">Implementing</option>
+                        <option value="Reviewing">Reviewing</option>
+                        <option value="Complete">Complete</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="field is-narrow taskview--new-task-button mr-5">
+                    <div className="control">
+                      <button className="button is-outlined is-primary is-small">Add</button>
                     </div>
                   </div>
                 </div>
