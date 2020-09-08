@@ -59,6 +59,11 @@
   &--project {
     padding: 30px;
   }
+
+  &new-task-form {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .task {

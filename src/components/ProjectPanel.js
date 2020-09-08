@@ -106,21 +106,47 @@ function ProjectPanel(props) {
         ) : (
           <div className="taskview--project">
             <h2 className="taskview--project-title title is-3">{project.name}</h2>
-            {projectTasks.length > 0 &&
-              projectTasks.map(task => (
-                <div className="task mt-1" key={task._id}>
-                  <TaskDetails task={task} />
-                  <span className="task--delete has-text-danger">
-                    <i onClick={e => handleDeleteTaskClick(e)} data-task={task._id} className="fa fa-trash"></i>
-                  </span>
+            {projectTasks.length > 0 && projectTasks.map(task => <TaskDetails task={task} handleDeleteTaskClick={handleDeleteTaskClick} />)}
+            <form className="taskview--new-task-form" onSubmit={handleNewTaskRequest} className="mt-3">
+              <div className="field is-horizontal">
+                <div className="field-body">
+                  <div className="field">
+                    <div className="control">
+                      <input onChange={e => setNewTaskValue(e.target.value)} value={newTaskValue} className="taskview--new-task-input quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new task"></input>
+                    </div>
+                    {newTaskValue && <p className="help is-info">press ENTER to create the new task</p>}
+                  </div>
+                  <div className="field is-narrow">
+                    <div className="control">
+                      <div className="select">
+                        <select defaultValue="status">
+                          <option value="status" disabled hidden>
+                            Status
+                          </option>
+                          <option value="planning">Planning</option>
+                          <option value="implementing">Implementing</option>
+                          <option value="reviewing">Reviewing</option>
+                          <option value="complete">Complete</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="field is-narrow">
+                    <div className="control">
+                      <div className="select">
+                        <select defaultValue="category">
+                          <option value="category" disabled hidden>
+                            Category
+                          </option>
+                          <option value="planning">Planning</option>
+                          <option value="implementing">Implementing</option>
+                          <option value="reviewing">Reviewing</option>
+                          <option value="complete">Complete</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              ))}
-            <form onSubmit={handleNewTaskRequest} className="mt-3">
-              <div className="field">
-                <div className="control">
-                  <input onChange={e => setNewTaskValue(e.target.value)} value={newTaskValue} className="taskview--new-task-input quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new task"></input>
-                </div>
-                {newTaskValue && <p className="help is-info">press ENTER to create the new task</p>}
               </div>
             </form>
           </div>
