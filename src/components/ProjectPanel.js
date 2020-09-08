@@ -4,6 +4,7 @@ import DispatchContext from '../DispatchContext'
 import LoadingDotsIcon from './LoadingDotsIcon'
 import CenteredInContainer from './CenteredInContainer'
 import Task from './Task'
+import TaskInlineForm from './TaskInlineForm'
 
 function ProjectPanel(props) {
   const appDispatch = useContext(DispatchContext)
@@ -114,55 +115,21 @@ function ProjectPanel(props) {
         ) : (
           <div className="project-panel--project">
             <h2 className="project-panel--project-title title is-3">{project.name}</h2>
-            {projectTasks.length > 0 && projectTasks.map(task => <Task key={task._id} task={task} handleDeleteTaskClick={handleDeleteTaskClick} />)}
-            <form className="project-panel--new-task-form" onSubmit={handleNewTaskRequest} className="mt-3">
-              <div className="field is-horizontal">
-                <div className="field-body">
-                  <div className="field">
-                    <div className="control">
-                      <input
-                        onChange={e => setTaskValue(e.target.value)}
-                        value={taskValue}
-                        className="project-panel--new-task-value quiet-input input is-shadowless is-radiusless pl-0"
-                        type="text"
-                        placeholder="&#x0002B;  Describe a new task"
-                      ></input>
-                    </div>
-                  </div>
-                  <div className="field is-narrow">
-                    <div className="control">
-                      <select className="project-panel--new-task-select" value={taskCategory} onChange={e => setTaskCategory(e.target.value)}>
-                        <option value="category" hidden>
-                          Category
-                        </option>
-                        <option value="Setup">Setup</option>
-                        <option value="Design">Design</option>
-                        <option value="Content">Content</option>
-                        <option value="Functionality">Functionality</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="field is-narrow">
-                    <div className="control">
-                      <select className="project-panel--new-task-select" value={taskStatus} onChange={e => setTaskStatus(e.target.value)}>
-                        <option value="status" hidden>
-                          Status
-                        </option>
-                        <option value="Planning">Planning</option>
-                        <option value="Implementing">Implementing</option>
-                        <option value="Reviewing">Reviewing</option>
-                        <option value="Complete">Complete</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="field is-narrow project-panel--new-task-button mr-5">
-                    <div className="control">
-                      <button className="button is-outlined is-primary is-small">Add</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
+            {projectTasks.length > 0 &&
+              projectTasks.map(task => (
+                <Task key={task._id} task={task} handleDeleteTaskClick={handleDeleteTaskClick} setProjectTasks={setProjectTasks} />
+              ))}
+            <TaskInlineForm
+              inputPlaceholderText="&#x0002B;   Add a new task"
+              submitButtonText="Add"
+              taskValue={taskValue}
+              setTaskValue={setTaskValue}
+              taskCategory={taskCategory}
+              setTaskCategory={setTaskCategory}
+              taskStatus={taskStatus}
+              setTaskStatus={setTaskStatus}
+              submitTask={handleNewTaskRequest}
+            />
           </div>
         )
       ) : (
