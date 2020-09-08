@@ -50,7 +50,11 @@ function ProjectPanel(props) {
 
         async function createNewTask() {
           try {
-            const response = await axios.post('http://localhost:8080/task/create', { projectId, value: taskValue.trim(), category: taskCategory, status: taskStatus }, { cancelToken: ourRequest.token })
+            const response = await axios.post(
+              'http://localhost:8080/task/create',
+              { projectId, value: taskValue.trim(), category: taskCategory, status: taskStatus },
+              { cancelToken: ourRequest.token }
+            )
             if (response.data.errorMessage) {
               appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
             } else {
@@ -116,7 +120,13 @@ function ProjectPanel(props) {
                 <div className="field-body">
                   <div className="field">
                     <div className="control">
-                      <input onChange={e => setTaskValue(e.target.value)} value={taskValue} className="project-panel--new-task-value quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Describe a new task"></input>
+                      <input
+                        onChange={e => setTaskValue(e.target.value)}
+                        value={taskValue}
+                        className="project-panel--new-task-value quiet-input input is-shadowless is-radiusless pl-0"
+                        type="text"
+                        placeholder="&#x0002B;  Describe a new task"
+                      ></input>
                     </div>
                   </div>
                   <div className="field is-narrow">
