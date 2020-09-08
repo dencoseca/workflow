@@ -105,15 +105,15 @@ function Home() {
               <strong className="has-text-primary">{appState.user.username}'s</strong> Projects
             </h3>
             {projectsAreLoading ? (
-                <LoadingDotsIcon />
+              <LoadingDotsIcon />
             ) : (
               projects.map(project => (
                 <div className="home--project-list-item mt-1" key={project._id}>
-                  <span className="icon">
-                    <i onClick={e => handleProjectDelete(e)} className="home--project-list-item-delete fa fa-trash has-text-danger" data-project={project._id}></i>
-                  </span>
                   <span onClick={e => setSelectedProject(project._id)} className="home--project-list-item-name">
                     {project.name}
+                  </span>
+                  <span className="icon">
+                    <i onClick={e => handleProjectDelete(e)} className="home--project-list-item-delete fa fa-trash has-text-danger" data-project={project._id}></i>
                   </span>
                 </div>
               ))

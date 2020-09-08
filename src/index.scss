@@ -22,18 +22,13 @@
     &-item {
       font-weight: bold;
       display: flex;
-      flex-direction: row-reverse;
       align-items: center;
       justify-content: space-between;
 
       &:hover {
         .home--project-list-item-delete {
-          display: block;
+          visibility: visible;
         }
-      }
-
-      .icon:hover + .home--project-list-item-name {
-        color: hsl(348, 100%, 61%);
       }
     }
 
@@ -43,7 +38,7 @@
 
     &-item-delete {
       cursor: pointer;
-      display: none;
+      visibility: hidden;
     }
   }
 }
