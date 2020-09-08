@@ -70,10 +70,20 @@
   display: flex;
   align-items: center;
 
+  &:hover {
+    .task--delete {
+      visibility: visible;
+    }
+  }
+
   &--value {
     margin-right: auto;
   }
 
+  &--delete {
+    cursor: pointer;
+    visibility: hidden;
+  }
 }
 
 // FLOATING ALERTS

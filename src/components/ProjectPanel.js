@@ -3,7 +3,7 @@ import axios from 'axios'
 import DispatchContext from '../DispatchContext'
 import LoadingDotsIcon from './LoadingDotsIcon'
 import CenteredInContainer from './CenteredInContainer'
-import Task from './Task'
+import TaskDetails from './TaskDetails'
 
 function ProjectPanel(props) {
   const appDispatch = useContext(DispatchContext)
@@ -73,6 +73,29 @@ function ProjectPanel(props) {
     setNewTaskRequest(prev => prev + 1)
   }
 
+  function handleDeleteTaskClick(e) {
+    const clickedTaskId = e.target.dataset.task
+    const ourRequest = axios.CancelToken.source()
+
+    async function deleteTask() {
+      try {
+        const response = await axios.post('http://localhost:8080/task/delete', { taskId: clickedTaskId }, { cancelToken: ourRequest.token })
+        if (response.data.errorMessage) {
+          appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+        } else {
+          appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
+          setProjectTasks(prev => prev.filter(task => task._id != clickedTaskId))
+        }
+      } catch (err) {
+        console.log('There was a problem or the request was cancelled.')
+      }
+    }
+    deleteTask()
+    return () => {
+      ourRequest.cancel()
+    }
+  }
+
   return (
     <div className="taskview">
       {projectId ? (
@@ -83,7 +106,15 @@ function ProjectPanel(props) {
         ) : (
           <div className="taskview--project">
             <h2 className="taskview--project-title title is-3">{project.name}</h2>
-            {projectTasks.length > 0 && projectTasks.map(task => <Task key={task._id} task={task} />)}
+            {projectTasks.length > 0 &&
+              projectTasks.map(task => (
+                <div className="task mt-1" key={task._id}>
+                  <TaskDetails task={task} />
+                  <span className="task--delete has-text-danger">
+                    <i onClick={e => handleDeleteTaskClick(e)} data-task={task._id} className="fa fa-trash"></i>
+                  </span>
+                </div>
+              ))}
             <form onSubmit={handleNewTaskRequest} className="mt-3">
               <div className="field">
                 <div className="control">
