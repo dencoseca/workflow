@@ -3,7 +3,7 @@ import axios from 'axios'
 import DispatchContext from '../DispatchContext'
 import LoadingDotsIcon from './LoadingDotsIcon'
 import CenteredInContainer from './CenteredInContainer'
-import TaskDetails from './TaskDetails'
+import Task from './Task'
 
 function ProjectPanel(props) {
   const appDispatch = useContext(DispatchContext)
@@ -11,8 +11,8 @@ function ProjectPanel(props) {
   const [project, setProject] = useState({})
   const [projectTasks, setProjectTasks] = useState([])
   const [taskValue, setTaskValue] = useState('')
-  const [taskCategory, setTaskCategory] = useState('')
-  const [taskStatus, setTaskStatus] = useState('')
+  const [taskCategory, setTaskCategory] = useState('Category')
+  const [taskStatus, setTaskStatus] = useState('Status')
   const [newTaskRequest, setNewTaskRequest] = useState(0)
   const [projectIsLoading, setProjectIsLoading] = useState(true)
 
@@ -57,6 +57,8 @@ function ProjectPanel(props) {
               appDispatch({ type: 'flashMessage', value: 'Task successfully created', color: 'success' })
               setProjectTasks(prev => [...prev, response.data])
               setTaskValue('')
+              setTaskCategory('Category')
+              setTaskStatus('Status')
             }
           } catch (err) {
             console.log('There was a problem or the request was cancelled.')
@@ -99,27 +101,27 @@ function ProjectPanel(props) {
   }
 
   return (
-    <div className="taskview">
+    <div className="project-panel">
       {projectId ? (
         projectIsLoading ? (
           <CenteredInContainer>
             <LoadingDotsIcon />
           </CenteredInContainer>
         ) : (
-          <div className="taskview--project">
-            <h2 className="taskview--project-title title is-3">{project.name}</h2>
-            {projectTasks.length > 0 && projectTasks.map(task => <TaskDetails key={task._id} task={task} handleDeleteTaskClick={handleDeleteTaskClick} />)}
-            <form className="taskview--new-task-form" onSubmit={handleNewTaskRequest} className="mt-3">
+          <div className="project-panel--project">
+            <h2 className="project-panel--project-title title is-3">{project.name}</h2>
+            {projectTasks.length > 0 && projectTasks.map(task => <Task key={task._id} task={task} handleDeleteTaskClick={handleDeleteTaskClick} />)}
+            <form className="project-panel--new-task-form" onSubmit={handleNewTaskRequest} className="mt-3">
               <div className="field is-horizontal">
                 <div className="field-body">
                   <div className="field">
                     <div className="control">
-                      <input onChange={e => setTaskValue(e.target.value)} value={taskValue} className="taskview--new-task-value quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Describe a new task"></input>
+                      <input onChange={e => setTaskValue(e.target.value)} value={taskValue} className="project-panel--new-task-value quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Describe a new task"></input>
                     </div>
                   </div>
                   <div className="field is-narrow">
                     <div className="control">
-                      <select className="taskview--new-task-select" defaultValue="category" onChange={e => setTaskCategory(e.target.value)}>
+                      <select className="project-panel--new-task-select" value={taskCategory} onChange={e => setTaskCategory(e.target.value)}>
                         <option value="category" hidden>
                           Category
                         </option>
@@ -132,7 +134,7 @@ function ProjectPanel(props) {
                   </div>
                   <div className="field is-narrow">
                     <div className="control">
-                      <select className="taskview--new-task-select" defaultValue="status" onChange={e => setTaskStatus(e.target.value)}>
+                      <select className="project-panel--new-task-select" value={taskStatus} onChange={e => setTaskStatus(e.target.value)}>
                         <option value="status" hidden>
                           Status
                         </option>
@@ -143,7 +145,7 @@ function ProjectPanel(props) {
                       </select>
                     </div>
                   </div>
-                  <div className="field is-narrow taskview--new-task-button mr-5">
+                  <div className="field is-narrow project-panel--new-task-button mr-5">
                     <div className="control">
                       <button className="button is-outlined is-primary is-small">Add</button>
                     </div>
@@ -154,7 +156,7 @@ function ProjectPanel(props) {
           </div>
         )
       ) : (
-        <div className="taskview--no-project">
+        <div className="project-panel--no-project">
           <h3 className="subtitle is-4">Choose a project or create a new one to start adding tasks...</h3>
         </div>
       )}
