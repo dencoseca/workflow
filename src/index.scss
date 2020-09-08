@@ -17,29 +17,27 @@
   align-items: center;
 }
 
-.home {
-  &--project-list {
-    &-item {
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+.project-list {
+  &--item {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-      &:hover {
-        .home--project-list-item-delete {
-          visibility: visible;
-        }
+    &:hover {
+      .project-list--item-delete {
+        visibility: visible;
       }
     }
+  }
 
-    &-item-name {
-      cursor: pointer;
-    }
+  &--item-name {
+    cursor: pointer;
+  }
 
-    &-item-delete {
-      cursor: pointer;
-      visibility: hidden;
-    }
+  &--item-delete {
+    cursor: pointer;
+    visibility: hidden;
   }
 }
 

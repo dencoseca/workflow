@@ -5,6 +5,7 @@ import DispatchContext from '../DispatchContext'
 import axios from 'axios'
 import LoadingDotsIcon from './LoadingDotsIcon'
 import ProjectPanel from './ProjectPanel.js'
+import ProjectListItem from './ProjectListItem'
 
 function Home() {
   const appState = useContext(StateContext)
@@ -21,7 +22,11 @@ function Home() {
 
     async function fetchProjects() {
       try {
-        const response = await axios.post('http://localhost:8080/project/findall', { userId: appState.user.userId }, { cancelToken: ourRequest.token })
+        const response = await axios.post(
+          'http://localhost:8080/project/findall',
+          { userId: appState.user.userId },
+          { cancelToken: ourRequest.token }
+        )
         if (response.data.errorMessage) {
           appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
         } else {
@@ -47,7 +52,11 @@ function Home() {
 
         async function createNewProject() {
           try {
-            const response = await axios.post('http://localhost:8080/project/create', { userId: appState.user.userId, name: newProjectName }, { cancelToken: ourRequest.token })
+            const response = await axios.post(
+              'http://localhost:8080/project/create',
+              { userId: appState.user.userId, name: newProjectName.trim() },
+              { cancelToken: ourRequest.token }
+            )
             if (response.data.errorMessage) {
               appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
             } else {
@@ -108,20 +117,24 @@ function Home() {
               <LoadingDotsIcon />
             ) : (
               projects.map(project => (
-                <div className="home--project-list-item mt-1" key={project._id}>
-                  <span onClick={e => setSelectedProject(project._id)} className="home--project-list-item-name">
-                    {project.name}
-                  </span>
-                  <span className="icon">
-                    <i onClick={e => handleProjectDelete(e)} className="home--project-list-item-delete fa fa-times has-text-danger" data-project={project._id}></i>
-                  </span>
-                </div>
+                <ProjectListItem
+                  key={project._id}
+                  setSelectedProject={setSelectedProject}
+                  handleProjectDelete={handleProjectDelete}
+                  project={project}
+                />
               ))
             )}
             <form onSubmit={handleNewProjectRequest} className="mt-3">
               <div className="field">
                 <div className="control">
-                  <input onChange={e => setNewProjectName(e.target.value)} value={newProjectName} className="home--project-list-input quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new project"></input>
+                  <input
+                    onChange={e => setNewProjectName(e.target.value)}
+                    value={newProjectName}
+                    className="home--project-list-input quiet-input input is-shadowless is-radiusless pl-0"
+                    type="text"
+                    placeholder="&#x0002B;  Add a new project"
+                  ></input>
                 </div>
                 {newProjectName && <p className="help is-info">press ENTER to create the new project</p>}
               </div>
