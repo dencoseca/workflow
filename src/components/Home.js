@@ -113,7 +113,7 @@ function Home() {
                     {project.name}
                   </span>
                   <span className="icon">
-                    <i onClick={e => handleProjectDelete(e)} className="home--project-list-item-delete fa fa-trash has-text-danger" data-project={project._id}></i>
+                    <i onClick={e => handleProjectDelete(e)} className="home--project-list-item-delete fa fa-times has-text-danger" data-project={project._id}></i>
                   </span>
                 </div>
               ))

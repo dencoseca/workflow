@@ -10,7 +10,9 @@ function ProjectPanel(props) {
   const projectId = props.projectId
   const [project, setProject] = useState({})
   const [projectTasks, setProjectTasks] = useState([])
-  const [newTaskValue, setNewTaskValue] = useState('')
+  const [taskValue, setTaskValue] = useState('')
+  const [taskCategory, setTaskCategory] = useState('')
+  const [taskStatus, setTaskStatus] = useState('')
   const [newTaskRequest, setNewTaskRequest] = useState(0)
   const [projectIsLoading, setProjectIsLoading] = useState(true)
 
@@ -41,20 +43,20 @@ function ProjectPanel(props) {
 
   useEffect(() => {
     if (newTaskRequest > 0) {
-      if (!newTaskValue) {
+      if (!taskValue) {
         appDispatch({ type: 'flashMessage', value: 'New task value cannot be blank', color: 'danger' })
       } else {
         const ourRequest = axios.CancelToken.source()
 
         async function createNewTask() {
           try {
-            const response = await axios.post('http://localhost:8080/task/create', { projectId, value: newTaskValue }, { cancelToken: ourRequest.token })
+            const response = await axios.post('http://localhost:8080/task/create', { projectId, value: taskValue, category: taskCategory, status: taskStatus }, { cancelToken: ourRequest.token })
             if (response.data.errorMessage) {
               appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
             } else {
               appDispatch({ type: 'flashMessage', value: 'Task successfully created', color: 'success' })
               setProjectTasks(prev => [...prev, response.data])
-              setNewTaskValue('')
+              setTaskValue('')
             }
           } catch (err) {
             console.log('There was a problem or the request was cancelled.')
@@ -112,36 +114,36 @@ function ProjectPanel(props) {
                 <div className="field-body">
                   <div className="field">
                     <div className="control">
-                      <input onChange={e => setNewTaskValue(e.target.value)} value={newTaskValue} className="taskview--new-task-input quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new task"></input>
+                      <input onChange={e => setTaskValue(e.target.value)} value={taskValue} className="taskview--new-task-value quiet-input input is-shadowless is-radiusless pl-0" type="text" placeholder="&#x0002B;  Add a new task"></input>
                     </div>
-                    {newTaskValue && <p className="help is-info">press ENTER to create the new task</p>}
+                    {taskValue && <p className="help is-info">press ENTER to create the new task</p>}
                   </div>
-                  <div className="field is-narrow">
+                  <div className="field is-narrow taskview--new-task-category">
                     <div className="control">
                       <div className="select">
-                        <select defaultValue="status">
-                          <option value="status" disabled hidden>
-                            Status
+                        <select onChange={e => setTaskCategory(e.target.value)} defaultValue="category">
+                          <option value="category" disabled hidden>
+                            Category
                           </option>
-                          <option value="planning">Planning</option>
-                          <option value="implementing">Implementing</option>
-                          <option value="reviewing">Reviewing</option>
-                          <option value="complete">Complete</option>
+                          <option value="Setup">Setup</option>
+                          <option value="Design">Design</option>
+                          <option value="Content">Content</option>
+                          <option value="Functionality">Functionality</option>
                         </select>
                       </div>
                     </div>
                   </div>
-                  <div className="field is-narrow">
+                  <div className="field is-narrow taskview--new-task-category">
                     <div className="control">
                       <div className="select">
-                        <select defaultValue="category">
-                          <option value="category" disabled hidden>
-                            Category
+                        <select onChange={e => setTaskStatus(e.target.value)} defaultValue="status">
+                          <option value="status" disabled hidden>
+                            Status
                           </option>
-                          <option value="planning">Planning</option>
-                          <option value="implementing">Implementing</option>
-                          <option value="reviewing">Reviewing</option>
-                          <option value="complete">Complete</option>
+                          <option value="Planning">Planning</option>
+                          <option value="Implementing">Implementing</option>
+                          <option value="Reviewing">Reviewing</option>
+                          <option value="Complete">Complete</option>
                         </select>
                       </div>
                     </div>
