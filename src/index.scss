@@ -21,6 +21,7 @@
   &--item {
     font-weight: bold;
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
 
@@ -28,6 +29,10 @@
       .project-list--item-delete {
         visibility: visible;
       }
+    }
+
+    .icon:hover + .project-list--item-name {
+      color: hsl(348, 100%, 61%);
     }
   }
 
@@ -66,7 +71,7 @@
 
 .task-inline-form {
   width: 100%;
-  
+
   &--select {
     height: 2.5rem;
     border: none;
