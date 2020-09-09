@@ -64,8 +64,50 @@
     padding: 40px 30px 30px 45px;
   }
 
+  &--project-title-container {
+    margin-bottom: 25px;
+    display: flex;
+
+    .icon {
+      margin-top: 10px;
+
+      &:hover {
+        color: hsl(204, 86%, 53%);
+      }
+    }
+  }
+
+  &--project-title {
+    margin-bottom: 0 !important;
+
+    &-edit-input {
+      padding: 0;
+      margin: 0;
+      height: 2.25rem;
+    }
+  }
+
   &--tasks {
     margin-bottom: 15px;
+  }
+
+  &--project-form-highlight {
+    border: 1px solid hsl(171, 100%, 41%);
+    border-radius: 5px;
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: -6px;
+    left: -16px;
+
+    &-undo {
+      position: relative;
+
+      &:hover {
+        color: hsl(348, 100%, 61%);
+      }
+    }
   }
 }
 
@@ -120,7 +162,6 @@
     padding: 5px 15px;
     margin-top: 10px;
     display: flex;
-    justify-content: stretch;
     align-items: center;
 
     &-undo {

@@ -136,7 +136,7 @@ function Home() {
                     placeholder="&#x0002B;  Add a new project"
                   ></input>
                 </div>
-                {newProjectName && <p className="help is-info">press ENTER to create the new project</p>}
+                {newProjectName && <p className="help is-primary">press ENTER to create the new project</p>}
               </div>
             </form>
           </div>

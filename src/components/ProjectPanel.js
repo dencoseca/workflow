@@ -16,6 +16,9 @@ function ProjectPanel(props) {
   const [taskStatus, setTaskStatus] = useState('Status')
   const [newTaskRequest, setNewTaskRequest] = useState(0)
   const [projectIsLoading, setProjectIsLoading] = useState(true)
+  const [editingProjectName, setEditingProjectName] = useState(false)
+  const [projectName, setProjectName] = useState('')
+  const [initialProjectName, setInitialProjectName] = useState('')
 
   useEffect(() => {
     if (projectId) {
@@ -29,7 +32,9 @@ function ProjectPanel(props) {
           } else {
             setProject(response.data)
             setProjectTasks(response.data.tasks)
+            setProjectName(response.data.name)
             setProjectIsLoading(false)
+            setEditingProjectName(false)
           }
         } catch (e) {
           console.log('There was a problem or the request was cancelled.')
@@ -81,6 +86,12 @@ function ProjectPanel(props) {
     }
   }, [newTaskRequest])
 
+  useEffect(() => {
+    if (editingProjectName) {
+      setInitialProjectName(projectName)
+    }
+  }, [editingProjectName])
+
   function handleNewTaskRequest(e) {
     e.preventDefault()
     setNewTaskRequest(prev => prev + 1)
@@ -109,6 +120,39 @@ function ProjectPanel(props) {
     }
   }
 
+  function updateProjectName(e) {
+    e.preventDefault()
+    const ourRequest = axios.CancelToken.source()
+
+    async function updateProjectName() {
+      try {
+        const response = await axios.post(
+          'http://localhost:8080/project/update',
+          { projectId: props.projectId, project: { name: projectName } },
+          { cancelToken: ourRequest.token }
+        )
+        if (response.data.errorMessage) {
+          appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+        } else {
+          appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
+          setProjectName(response.data.updatedProject.name)
+          setEditingProjectName(false)
+        }
+      } catch (err) {
+        console.log('There was a problem or the request was cancelled.')
+      }
+    }
+    updateProjectName()
+    return () => {
+      ourRequest.cancel()
+    }
+  }
+
+  function handleUndoEditClick() {
+    setProjectName(initialProjectName)
+    setEditingProjectName(false)
+  }
+
   return (
     <div className="project-panel">
       {projectId ? (
@@ -118,12 +162,36 @@ function ProjectPanel(props) {
           </CenteredInContainer>
         ) : (
           <div className="project-panel--project">
-            <h2 className="project-panel--project-title title is-3">{project.name}</h2>
+            <div className="project-panel--project-title-container">
+              {editingProjectName ? (
+                <>
+                  <div className="project-panel--project-form-highlight">
+                    <form onSubmit={e => updateProjectName(e)}>
+                      <input
+                        onChange={e => setProjectName(e.target.value)}
+                        type="text"
+                        className="project-panel--project-title-edit-input input quiet-input-no-focus is-shadowless title is-3"
+                        value={projectName}
+                      />
+                    </form>
+                    <i onClick={handleUndoEditClick} className="project-panel--project-form-highlight-undo fa fa-undo ml-3"></i>
+                  </div>
+                  {projectName !== initialProjectName && <p className="help is-primary mt-2">press ENTER to edit project title</p>}
+                </>
+              ) : (
+                <>
+                  <h2 className="project-panel--project-title title is-3">{projectName}</h2>
+                  <span className="icon ml-3">
+                    <i onClick={e => setEditingProjectName(true)} className="fa fa-edit"></i>
+                  </span>
+                </>
+              )}
+            </div>
             <div className="project-panel--tasks">
-                {projectTasks.length > 0 &&
-                  projectTasks.map(task => (
-                    <Task key={task._id} task={task} handleDeleteTaskClick={handleDeleteTaskClick} setProjectTasks={setProjectTasks} />
-                  ))}
+              {projectTasks.length > 0 &&
+                projectTasks.map(task => (
+                  <Task key={task._id} task={task} handleDeleteTaskClick={handleDeleteTaskClick} setProjectTasks={setProjectTasks} />
+                ))}
             </div>
             <TaskInlineForm
               inputPlaceholderText="&#x0002B;   Add a new task"
