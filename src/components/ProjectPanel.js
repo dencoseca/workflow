@@ -119,10 +119,12 @@ function ProjectPanel(props) {
         ) : (
           <div className="project-panel--project">
             <h2 className="project-panel--project-title title is-3">{project.name}</h2>
-            {projectTasks.length > 0 &&
-              projectTasks.map(task => (
-                <Task key={task._id} task={task} handleDeleteTaskClick={handleDeleteTaskClick} setProjectTasks={setProjectTasks} />
-              ))}
+            <div className="project-panel--tasks">
+                {projectTasks.length > 0 &&
+                  projectTasks.map(task => (
+                    <Task key={task._id} task={task} handleDeleteTaskClick={handleDeleteTaskClick} setProjectTasks={setProjectTasks} />
+                  ))}
+            </div>
             <TaskInlineForm
               inputPlaceholderText="&#x0002B;   Add a new task"
               submitButtonText="Add"
