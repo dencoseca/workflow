@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import TaskInlineForm from './TaskInlineForm'
 import axios from 'axios'
 import DispatchContext from '../DispatchContext'
@@ -9,6 +9,7 @@ function Task(props) {
   const [taskValue, setTaskValue] = useState(props.task.value)
   const [taskCategory, setTaskCategory] = useState(props.task.category)
   const [taskStatus, setTaskStatus] = useState(props.task.status)
+  const [initialTaskCopy, setInitialTaskCopy] = useState({})
 
   const lastUpdated = new Date(props.task.updatedAt)
   let categoryColor = ''
@@ -79,6 +80,23 @@ function Task(props) {
     }
   }
 
+  useEffect(() => {
+    if (loadTaskInlineForm) {
+      setInitialTaskCopy({
+        value: taskValue,
+        category: taskCategory,
+        status: taskStatus
+      })
+    }
+  }, [loadTaskInlineForm])
+
+  function handleUndoEditClick() {
+    setTaskValue(initialTaskCopy.value)
+    setTaskCategory(initialTaskCopy.category)
+    setTaskStatus(initialTaskCopy.status)
+    setLoadTaskInlineForm(false)
+  }
+
   return (
     <>
       {loadTaskInlineForm ? (
@@ -96,6 +114,7 @@ function Task(props) {
             submitTask={handleUpdateTaskClick}
             withFocus={false}
           />
+          <i onClick={handleUndoEditClick} className="task--inline-form-highlight-undo fa fa-undo ml-3"></i>
         </div>
       ) : (
         <div className="task" key={props.task._id}>

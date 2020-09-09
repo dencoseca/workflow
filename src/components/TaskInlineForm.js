@@ -2,7 +2,7 @@ import React from 'react'
 
 function TaskInlineForm(props) {
   return (
-    <form className="task-inline-form" onSubmit={e => props.submitTask(e)} data-task={props.taskId}>
+    <form className="task-inline-form control" onSubmit={e => props.submitTask(e)} data-task={props.taskId}>
       <div className="field is-horizontal">
         <div className="field-body">
           <div className="field">

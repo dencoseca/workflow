@@ -65,6 +65,8 @@
 }
 
 .task-inline-form {
+  width: 100%;
+  
   &--select {
     height: 2.5rem;
     border: none;
@@ -112,6 +114,17 @@
     border-radius: 5px;
     padding: 5px 15px;
     margin-top: 10px;
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+
+    &-undo {
+      position: relative;
+
+      &:hover {
+        color: hsl(348, 100%, 61%);
+      }
+    }
   }
 }
 
