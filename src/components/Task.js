@@ -82,18 +82,21 @@ function Task(props) {
   return (
     <>
       {loadTaskInlineForm ? (
-        <TaskInlineForm
-          taskId={props.task._id}
-          inputPlaceholderText="Edit task description"
-          submitButtonText="Update"
-          taskValue={taskValue}
-          setTaskValue={setTaskValue}
-          taskCategory={taskCategory}
-          setTaskCategory={setTaskCategory}
-          taskStatus={taskStatus}
-          setTaskStatus={setTaskStatus}
-          submitTask={handleUpdateTaskClick}
-        />
+        <div className="task--inline-form-highlight">
+          <TaskInlineForm
+            taskId={props.task._id}
+            inputPlaceholderText="Edit task description"
+            submitButtonText="Update"
+            taskValue={taskValue}
+            setTaskValue={setTaskValue}
+            taskCategory={taskCategory}
+            setTaskCategory={setTaskCategory}
+            taskStatus={taskStatus}
+            setTaskStatus={setTaskStatus}
+            submitTask={handleUpdateTaskClick}
+            withFocus={false}
+          />
+        </div>
       ) : (
         <div className="task" key={props.task._id}>
           <div className="task--value">{taskValue}</div>

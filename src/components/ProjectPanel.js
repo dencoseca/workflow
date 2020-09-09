@@ -45,7 +45,11 @@ function ProjectPanel(props) {
   useEffect(() => {
     if (newTaskRequest > 0) {
       if (!taskValue) {
-        appDispatch({ type: 'flashMessage', value: 'New task value cannot be blank', color: 'danger' })
+        appDispatch({ type: 'flashMessage', value: 'Task value cannot be blank', color: 'danger' })
+      } else if (taskCategory === 'Category') {
+        appDispatch({ type: 'flashMessage', value: 'Task category cannot be blank', color: 'danger' })
+      } else if (taskStatus === 'Status') {
+        appDispatch({ type: 'flashMessage', value: 'Task Status cannot be blank', color: 'danger' })
       } else {
         const ourRequest = axios.CancelToken.source()
 
@@ -129,6 +133,7 @@ function ProjectPanel(props) {
               taskStatus={taskStatus}
               setTaskStatus={setTaskStatus}
               submitTask={handleNewTaskRequest}
+              withFocus={true}
             />
           </div>
         )

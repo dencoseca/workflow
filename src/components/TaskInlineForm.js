@@ -2,7 +2,7 @@ import React from 'react'
 
 function TaskInlineForm(props) {
   return (
-    <form className="task-inline-form" onSubmit={e => props.submitTask(e)} className="mt-3" data-task={props.taskId}>
+    <form className="task-inline-form" onSubmit={e => props.submitTask(e)} data-task={props.taskId}>
       <div className="field is-horizontal">
         <div className="field-body">
           <div className="field">
@@ -10,7 +10,7 @@ function TaskInlineForm(props) {
               <input
                 onChange={e => props.setTaskValue(e.target.value)}
                 value={props.taskValue}
-                className="task-inline-form--value quiet-input input is-shadowless is-radiusless pl-0"
+                className={`task-inline-form--value quiet-input${props.withFocus ? '' : '-no-focus'} input is-shadowless is-radiusless pl-0`}
                 type="text"
                 placeholder={props.inputPlaceholderText}
               ></input>
