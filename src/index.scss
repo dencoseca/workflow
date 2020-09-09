@@ -84,6 +84,7 @@
       padding: 0;
       margin: 0;
       height: 2.25rem;
+      width: 500px; // FIND A RESPONSIVE WAY TO DO THIS!
     }
   }
 
@@ -97,9 +98,11 @@
     padding: 5px 15px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     position: relative;
     top: -6px;
     left: -16px;
+    width: 70%;
 
     &-undo {
       position: relative;

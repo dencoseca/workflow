@@ -141,6 +141,7 @@ function ProjectPanel(props) {
             appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
             setProjectName(response.data.updatedProject.name)
             setEditingProjectName(false)
+            props.setFetchProjectsRequest(prev => prev + 1)
           }
         } catch (err) {
           console.log('There was a problem or the request was cancelled.')
@@ -174,13 +175,17 @@ function ProjectPanel(props) {
                 <>
                   <div className="project-panel--project-form-highlight">
                     <form onSubmit={e => updateProjectName(e)}>
-                      <input
-                        onChange={e => setProjectName(e.target.value)}
-                        type="text"
-                        className="project-panel--project-title-edit-input input quiet-input-no-focus is-shadowless title is-3"
-                        value={projectName}
-                        ref={projectNameInputEl}
-                      />
+                      <div className="field">
+                        <div className="control">
+                          <input
+                            onChange={e => setProjectName(e.target.value)}
+                            type="text"
+                            className="project-panel--project-title-edit-input input quiet-input-no-focus is-shadowless title is-3"
+                            value={projectName}
+                            ref={projectNameInputEl}
+                          />
+                        </div>
+                      </div>
                     </form>
                     <i onClick={e => handleUndoEditClick()} className="project-panel--project-form-highlight-undo fa fa-undo ml-3"></i>
                   </div>

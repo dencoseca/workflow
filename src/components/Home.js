@@ -141,7 +141,7 @@ function Home() {
             </form>
           </div>
           <div className="column is-three-quarters">
-            <ProjectPanel projectId={selectedProject}  />
+            <ProjectPanel projectId={selectedProject} setFetchProjectsRequest={setFetchProjectsRequest} />
           </div>
         </div>
       </div>

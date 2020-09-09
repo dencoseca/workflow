@@ -7,12 +7,14 @@ function TaskInlineForm(props) {
     updateTaskInputEl.current.focus()
   }, [])
 
+  function refocusOnInputEl() {
+    updateTaskInputEl.current.focus()
+  }
+
   return (
     <form className="task-inline-form control" onSubmit={e => props.submitTask(e)} data-task={props.taskId}>
       <div className="field is-horizontal">
         <div className="field-body">
-          <div className="field">
-            <div className="control">
               <input
                 onChange={e => props.setTaskValue(e.target.value)}
                 value={props.taskValue}
@@ -21,8 +23,6 @@ function TaskInlineForm(props) {
                 placeholder={props.inputPlaceholderText}
                 ref={updateTaskInputEl}
               ></input>
-            </div>
-          </div>
           <div className="field is-narrow">
             <div className="control">
               <select className="task-inline-form--select" value={props.taskCategory} onChange={e => props.setTaskCategory(e.target.value)}>
@@ -51,7 +51,9 @@ function TaskInlineForm(props) {
           </div>
           <div className="field is-narrow task-inline-form--button">
             <div className="control">
-              <button className="button is-outlined is-primary is-small">{props.submitButtonText}</button>
+              <button onClick={e => refocusOnInputEl()} className="button is-outlined is-primary is-small">
+                {props.submitButtonText}
+              </button>
             </div>
           </div>
         </div>
