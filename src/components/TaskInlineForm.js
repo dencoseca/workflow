@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 
 function TaskInlineForm(props) {
+  const updateTaskInputEl = useRef(null)
+
+  useEffect(() => {
+    updateTaskInputEl.current.focus()
+  }, [])
+
   return (
     <form className="task-inline-form control" onSubmit={e => props.submitTask(e)} data-task={props.taskId}>
       <div className="field is-horizontal">
@@ -13,6 +19,7 @@ function TaskInlineForm(props) {
                 className={`task-inline-form--value quiet-input${props.withFocus ? '' : '-no-focus'} input is-shadowless is-radiusless pl-0`}
                 type="text"
                 placeholder={props.inputPlaceholderText}
+                ref={updateTaskInputEl}
               ></input>
             </div>
           </div>

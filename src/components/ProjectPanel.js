@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import axios from 'axios'
 import DispatchContext from '../DispatchContext'
 import LoadingDotsIcon from './LoadingDotsIcon'
@@ -19,6 +19,7 @@ function ProjectPanel(props) {
   const [editingProjectName, setEditingProjectName] = useState(false)
   const [projectName, setProjectName] = useState('')
   const [initialProjectName, setInitialProjectName] = useState('')
+  const projectNameInputEl = useRef(null)
 
   useEffect(() => {
     if (projectId) {
@@ -90,6 +91,7 @@ function ProjectPanel(props) {
   useEffect(() => {
     if (editingProjectName) {
       setInitialProjectName(projectName)
+      projectNameInputEl.current.focus()
     }
   }, [editingProjectName])
 
@@ -177,11 +179,12 @@ function ProjectPanel(props) {
                         type="text"
                         className="project-panel--project-title-edit-input input quiet-input-no-focus is-shadowless title is-3"
                         value={projectName}
+                        ref={projectNameInputEl}
                       />
                     </form>
                     <i onClick={handleUndoEditClick} className="project-panel--project-form-highlight-undo fa fa-undo ml-3"></i>
                   </div>
-                  {projectName.trim() != initialProjectName && <p className="help is-primary mt-2">press ENTER to edit project title</p>}
+                  {projectName.trim() != initialProjectName && <p className="help is-primary mt-2">press ENTER to confirm edit</p>}
                 </>
               ) : (
                 <>
