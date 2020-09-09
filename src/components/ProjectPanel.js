@@ -182,7 +182,7 @@ function ProjectPanel(props) {
                         ref={projectNameInputEl}
                       />
                     </form>
-                    <i onClick={handleUndoEditClick} className="project-panel--project-form-highlight-undo fa fa-undo ml-3"></i>
+                    <i onClick={e => handleUndoEditClick()} className="project-panel--project-form-highlight-undo fa fa-undo ml-3"></i>
                   </div>
                   {projectName.trim() != initialProjectName && <p className="help is-primary mt-2">press ENTER to confirm edit</p>}
                 </>

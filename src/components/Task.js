@@ -114,7 +114,7 @@ function Task(props) {
             submitTask={handleUpdateTaskClick}
             withFocus={false}
           />
-          <i onClick={handleUndoEditClick} className="task--inline-form-highlight-undo fa fa-undo ml-3"></i>
+          <i onClick={e => handleUndoEditClick()} className="task--inline-form-highlight-undo fa fa-undo ml-3"></i>
         </div>
       ) : (
         <div className="task" key={props.task._id}>
