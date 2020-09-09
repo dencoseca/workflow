@@ -33,6 +33,7 @@ function ProjectPanel(props) {
             setProject(response.data)
             setProjectTasks(response.data.tasks)
             setProjectName(response.data.name)
+            setInitialProjectName(response.data.name)
             setProjectIsLoading(false)
             setEditingProjectName(false)
           }
@@ -122,29 +123,33 @@ function ProjectPanel(props) {
 
   function updateProjectName(e) {
     e.preventDefault()
-    const ourRequest = axios.CancelToken.source()
+    if (projectName.trim() != initialProjectName) {
+      const ourRequest = axios.CancelToken.source()
 
-    async function updateProjectName() {
-      try {
-        const response = await axios.post(
-          'http://localhost:8080/project/update',
-          { projectId: props.projectId, project: { name: projectName } },
-          { cancelToken: ourRequest.token }
-        )
-        if (response.data.errorMessage) {
-          appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
-        } else {
-          appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
-          setProjectName(response.data.updatedProject.name)
-          setEditingProjectName(false)
+      async function updateProjectName() {
+        try {
+          const response = await axios.post(
+            'http://localhost:8080/project/update',
+            { projectId: props.projectId, project: { name: projectName.trim() } },
+            { cancelToken: ourRequest.token }
+          )
+          if (response.data.errorMessage) {
+            appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+          } else {
+            appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
+            setProjectName(response.data.updatedProject.name)
+            setEditingProjectName(false)
+          }
+        } catch (err) {
+          console.log('There was a problem or the request was cancelled.')
         }
-      } catch (err) {
-        console.log('There was a problem or the request was cancelled.')
       }
-    }
-    updateProjectName()
-    return () => {
-      ourRequest.cancel()
+      updateProjectName()
+      return () => {
+        ourRequest.cancel()
+      }
+    } else {
+      setEditingProjectName(false)
     }
   }
 
@@ -176,7 +181,7 @@ function ProjectPanel(props) {
                     </form>
                     <i onClick={handleUndoEditClick} className="project-panel--project-form-highlight-undo fa fa-undo ml-3"></i>
                   </div>
-                  {projectName !== initialProjectName && <p className="help is-primary mt-2">press ENTER to edit project title</p>}
+                  {projectName.trim() != initialProjectName && <p className="help is-primary mt-2">press ENTER to edit project title</p>}
                 </>
               ) : (
                 <>
