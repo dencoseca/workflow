@@ -24,11 +24,15 @@
     flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
+    transition: all 0.1s ease-in;
 
     &:hover {
       .project-list--item-delete {
         visibility: visible;
       }
+    }
+    .icon {
+      transition: all 0.1s ease-in;
     }
 
     .icon:hover + .project-list--item-name {
@@ -70,6 +74,7 @@
 
     .icon {
       margin-top: 10px;
+      transition: all 0.1s ease-in;
 
       &:hover {
         color: hsl(204, 86%, 53%);
@@ -105,11 +110,11 @@
     width: 70%;
 
     &-undo {
-      position: relative;
+      transition: all 0.1s ease-in;
+    }
 
-      &:hover {
-        color: hsl(348, 100%, 61%);
-      }
+    &-undo:hover {
+      color: hsl(348, 100%, 61%);
     }
   }
 }
@@ -145,6 +150,7 @@
 
   &--edit {
     cursor: pointer;
+    transition: all 0.1s ease-in;
 
     &:hover {
       color: hsl(204, 86%, 53%);
@@ -153,6 +159,7 @@
 
   &--delete {
     cursor: pointer;
+    transition: all 0.1s ease-in;
 
     &:hover {
       color: hsl(348, 100%, 61%);
@@ -169,6 +176,7 @@
 
     &-undo {
       position: relative;
+      transition: all 0.1s ease-in;
 
       &:hover {
         color: hsl(348, 100%, 61%);
