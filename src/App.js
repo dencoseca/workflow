@@ -5,6 +5,7 @@ import { useImmerReducer } from 'use-immer'
 
 // COMPONENTS
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Welcome from './components/Welcome'
 import FlashMessages from './components/FlashMessages'
 import Home from './components/Home'
@@ -55,6 +56,7 @@ function App() {
         <FlashMessages messages={state.flashMessages} />
         <Header />
         {state.loggedIn ? <Home /> : <Welcome />}
+        <Footer />
       </DispatchContext.Provider>
     </StateContext.Provider>
   )

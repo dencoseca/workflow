@@ -46,7 +46,7 @@ function Welcome() {
 
   return (
     <Page title="Welcome">
-      <div className="welcome--main-container mt-6 mx-6 columns">
+      <div className="welcome--main-container columns">
         <div className="welcome--sub-container column is-one-half">
           <h1 className="welcome--title mb-6">Let's Get Started!</h1>
           <p className="subtitle has-text-grey">
