@@ -48,8 +48,8 @@ function Welcome() {
     <Page title="Welcome">
       <div className="welcome--main-container mt-6 mx-6 columns">
         <div className="welcome--sub-container column is-one-half">
-          <h1 className="title is-1 mb-6">Welcome!</h1>
-          <p className="subtitle">
+          <h1 className="title is-1 mb-6">Let's Get Started!</h1>
+          <p className="subtitle has-text-grey">
             Create projects and tasks and manage your progress. We think project management should be simple. Just sign up or login to start
             organising your workflow.
           </p>
