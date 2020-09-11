@@ -17,6 +17,22 @@
   align-items: center;
 }
 
+.welcome {
+  &--main-container {
+    height: 350px;
+  }
+
+  &--sub-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &--bold-button-text {
+    margin-right: 6px;
+  }
+}
+
 .project-list {
   &--item {
     font-weight: bold;
