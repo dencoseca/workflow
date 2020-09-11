@@ -48,7 +48,7 @@ function Welcome() {
     <Page title="Welcome">
       <div className="welcome--main-container columns">
         <div className="welcome--sub-container column is-one-half">
-          <h1 className="welcome--title mb-6">Let's Get Started!</h1>
+          <h1 className="welcome--title mb-5">Let's Get Started!</h1>
           <p className="subtitle has-text-grey">
             Create projects and tasks and manage your progress. We think project management should be simple. Just sign up or login to start
             organising your workflow.

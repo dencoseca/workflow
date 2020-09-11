@@ -107,7 +107,7 @@ function Home() {
 
   return (
     <Page title="Home">
-      <div className="home mt-5">
+      <div className="home">
         <div className="columns">
           <div className="home--project-list column is-one-quarter">
             <h3 className="home--project-list-title subtitle is-3 mb-6">

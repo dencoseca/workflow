@@ -18,7 +18,7 @@ function TaskInlineForm(props) {
               <input
                 onChange={e => props.setTaskValue(e.target.value)}
                 value={props.taskValue}
-                className={`task-inline-form--value quiet-input${props.withFocus ? '' : '-no-focus'} input is-shadowless is-radiusless pl-0`}
+                className={`task-inline-form--value quiet-input${props.withFocus ? '' : '-no-focus'} input is-shadowless is-radiusless pl-0 mr-4`}
                 type="text"
                 placeholder={props.inputPlaceholderText}
                 ref={updateTaskInputEl}
