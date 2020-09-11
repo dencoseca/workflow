@@ -49,13 +49,13 @@ function Welcome() {
       <div className="welcome--main-container columns">
         <div className="welcome--sub-container column is-one-half">
           <h1 className="welcome--title mb-5">Let's Get Started!</h1>
-          <p className="subtitle has-text-grey">
+          <p className="welcome--subtitle has-text-grey">
             Create projects and tasks and manage your progress. We think project management should be simple. Just sign up or login to start
             organising your workflow.
           </p>
         </div>
         <div className="welcome--sub-container column is-one-half">
-          <form onSubmit={e => handleSubmit(e)}>
+          <form onSubmit={e => handleSubmit(e)} className="px-6">
             <div className="field">
               <label htmlFor="username" className="label">
                 Username
@@ -66,7 +66,7 @@ function Welcome() {
                   onChange={e => setUsername(e.target.value)}
                   type="text"
                   id="username"
-                  className="input"
+                  className="input mb-4"
                   placeholder="Pick a username"
                 ></input>
               </div>
@@ -81,7 +81,7 @@ function Welcome() {
                   onChange={e => setPassword(e.target.value)}
                   type="password"
                   id="password"
-                  className="input"
+                  className="input mb-4"
                   placeholder="Create a password"
                 ></input>
               </div>
