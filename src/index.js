@@ -5,6 +5,8 @@ import 'bulma/css/bulma.css'
 import './index.scss'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
+import axios from 'axios'
+axios.defaults.baseURL = 'https://workflow-backend.herokuapp.com'
 
 // Uncoment to debug CSS
 // import './debug.css'
