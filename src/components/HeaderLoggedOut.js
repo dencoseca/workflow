@@ -5,7 +5,6 @@ import DispatchContext from '../DispatchContext'
 function HeaderLoggedOut() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [signUpRequestCount, setSignUpRequestCount] = useState(0)
   const [loginRequestCount, setLoginRequestCount] = useState(0)
 
   const appDispatch = useContext(DispatchContext)
