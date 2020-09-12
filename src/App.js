@@ -9,10 +9,13 @@ import Footer from './components/Footer'
 import Welcome from './components/Welcome'
 import FlashMessages from './components/FlashMessages'
 import Home from './components/Home'
+import LoadingDotsIcon from './components/LoadingDotsIcon'
+import CenteredInContainer from './components/CenteredInContainer'
 
 function App() {
   const initialState = {
     loggedIn: Boolean(localStorage.getItem('workflowUserId')),
+    waitingForServer: false,
     flashMessages: [],
     user: {
       userId: localStorage.getItem('workflowUserId') || '',
@@ -32,7 +35,13 @@ function App() {
         break
       case 'flashMessage':
         draft.flashMessages.push({ value: action.value, color: action.color })
-        return
+        break
+      case 'startServerRequest':
+        draft.waitingForServer = true
+        break
+      case 'stopServerRequest':
+        draft.waitingForServer = false
+        break
       default:
         break
     }
@@ -55,7 +64,15 @@ function App() {
       <DispatchContext.Provider value={dispatch}>
         <FlashMessages messages={state.flashMessages} />
         <Header />
-        {state.loggedIn ? <Home /> : <Welcome />}
+        {state.waitingForServer ? (
+          <CenteredInContainer minHeight="500px">
+            <LoadingDotsIcon />
+          </CenteredInContainer>
+        ) : state.loggedIn ? (
+          <Home />
+        ) : (
+          <Welcome />
+        )}
         <Footer />
       </DispatchContext.Provider>
     </StateContext.Provider>

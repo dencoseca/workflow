@@ -12,6 +12,8 @@ function HeaderLoggedOut() {
 
   useEffect(() => {
     if (loginRequestCount > 0) {
+      appDispatch({ type: 'startServerRequest' })
+
       const ourRequest = axios.CancelToken.source()
 
       async function login() {
@@ -19,8 +21,10 @@ function HeaderLoggedOut() {
           const response = await axios.post('http://localhost:8080/user/login', { username, password }, { cancelToken: ourRequest.token })
           if (response.data.errorMessage) {
             appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+            appDispatch({ type: 'stopServerRequest' })
           } else {
             appDispatch({ type: 'login', value: response.data })
+            appDispatch({ type: 'stopServerRequest' })
           }
         } catch (e) {
           console.log('There was a problem or the request was cancelled.')

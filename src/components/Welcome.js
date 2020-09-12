@@ -11,6 +11,7 @@ function Welcome() {
 
   useEffect(() => {
     if (signUpRequestCount > 0) {
+      appDispatch({ type: 'startServerRequest' })
       const ourRequest = axios.CancelToken.source()
 
       async function signUp() {
@@ -18,9 +19,11 @@ function Welcome() {
           const response = await axios.post('http://localhost:8080/user/signup', { username, password }, { cancelToken: ourRequest.token })
           if (response.data.errorMessage) {
             appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+            appDispatch({ type: 'stopServerRequest' })
           } else {
             appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
             appDispatch({ type: 'login', value: response.data.user })
+            appDispatch({ type: 'stopServerRequest' })
           }
         } catch (e) {
           console.log('There was a problem or the request was cancelled.')
