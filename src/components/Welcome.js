@@ -16,7 +16,11 @@ function Welcome() {
 
       async function signUp() {
         try {
-          const response = await axios.post('http://localhost:8080/user/signup', { username, password }, { cancelToken: ourRequest.token })
+          const response = await axios.post(
+            'https://workflow-backend.herokuapp.com/user/signup',
+            { username, password },
+            { cancelToken: ourRequest.token }
+          )
           if (response.data.errorMessage) {
             appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
             appDispatch({ type: 'stopServerRequest' })

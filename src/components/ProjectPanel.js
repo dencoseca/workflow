@@ -27,7 +27,11 @@ function ProjectPanel(props) {
       const ourRequest = axios.CancelToken.source()
       async function fetchProject() {
         try {
-          const response = await axios.post('http://localhost:8080/project/findone', { projectId }, { cancelToken: ourRequest.token })
+          const response = await axios.post(
+            'https://workflow-backend.herokuapp.com/project/findone',
+            { projectId },
+            { cancelToken: ourRequest.token }
+          )
           if (response.data.errorMessage) {
             appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
           } else {
@@ -63,7 +67,7 @@ function ProjectPanel(props) {
         async function createNewTask() {
           try {
             const response = await axios.post(
-              'http://localhost:8080/task/create',
+              'https://workflow-backend.herokuapp.com/task/create',
               { projectId, value: taskValue.trim(), category: taskCategory, status: taskStatus },
               { cancelToken: ourRequest.token }
             )
@@ -106,7 +110,11 @@ function ProjectPanel(props) {
 
     async function deleteTask() {
       try {
-        const response = await axios.post('http://localhost:8080/task/delete', { taskId: clickedTaskId }, { cancelToken: ourRequest.token })
+        const response = await axios.post(
+          'https://workflow-backend.herokuapp.com/task/delete',
+          { taskId: clickedTaskId },
+          { cancelToken: ourRequest.token }
+        )
         if (response.data.errorMessage) {
           appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
         } else {
@@ -131,7 +139,7 @@ function ProjectPanel(props) {
       async function updateProjectName() {
         try {
           const response = await axios.post(
-            'http://localhost:8080/project/update',
+            'https://workflow-backend.herokuapp.com/project/update',
             { projectId: props.projectId, project: { name: projectName.trim() } },
             { cancelToken: ourRequest.token }
           )

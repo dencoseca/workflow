@@ -57,7 +57,7 @@ function Task(props) {
     async function updateTask() {
       try {
         const response = await axios.post(
-          'http://localhost:8080/task/update',
+          'https://workflow-backend.herokuapp.com/task/update',
           { taskId, task: { value: taskValue.trim(), category: taskCategory, status: taskStatus } },
           { cancelToken: ourRequest.token }
         )

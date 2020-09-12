@@ -23,7 +23,7 @@ function Home() {
     async function fetchProjects() {
       try {
         const response = await axios.post(
-          'http://localhost:8080/project/findall',
+          'https://workflow-backend.herokuapp.com/project/findall',
           { userId: appState.user.userId },
           { cancelToken: ourRequest.token }
         )
@@ -53,7 +53,7 @@ function Home() {
         async function createNewProject() {
           try {
             const response = await axios.post(
-              'http://localhost:8080/project/create',
+              'https://workflow-backend.herokuapp.com/project/create',
               { userId: appState.user.userId, name: newProjectName.trim() },
               { cancelToken: ourRequest.token }
             )
@@ -87,7 +87,11 @@ function Home() {
     const clickedProjectId = e.target.dataset.project
     async function deleteProject() {
       try {
-        const response = await axios.post('http://localhost:8080/project/delete', { projectId: clickedProjectId }, { cancelToken: ourRequest.token })
+        const response = await axios.post(
+          'https://workflow-backend.herokuapp.com/project/delete',
+          { projectId: clickedProjectId },
+          { cancelToken: ourRequest.token }
+        )
         if (response.data.errorMessage) {
           appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
         } else if (response.data.successMessage) {
