@@ -44,7 +44,7 @@ function Welcome() {
     return () => {
       ourRequest.cancel()
     }
-  }, [signUpRequestCount])
+  }, [appDispatch, password, signUpRequestCount, username])
 
   function handleSubmit(e) {
     e.preventDefault()

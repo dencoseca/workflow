@@ -42,7 +42,7 @@ function HeaderLoggedOut() {
     return () => {
       ourRequest.cancel()
     }
-  }, [loginRequestCount])
+  }, [appDispatch, loginRequestCount, password, username])
 
   function handleKeyDown(e) {
     if (e.key === 'Enter') {

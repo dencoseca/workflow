@@ -9,8 +9,6 @@ import Footer from './components/Footer'
 import Welcome from './components/Welcome'
 import FlashMessages from './components/FlashMessages'
 import Home from './components/Home'
-import LoadingDotsIcon from './components/LoadingDotsIcon'
-import CenteredInContainer from './components/CenteredInContainer'
 
 function App() {
   const initialState = {
@@ -57,7 +55,7 @@ function App() {
       localStorage.removeItem('workflowUserId')
       localStorage.removeItem('workflowUsername')
     }
-  }, [state.loggedIn])
+  }, [state.loggedIn, state.user.userId, state.user.username])
 
   return (
     <StateContext.Provider value={state}>

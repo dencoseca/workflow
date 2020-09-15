@@ -85,7 +85,7 @@ function Task(props) {
         status: taskStatus
       })
     }
-  }, [loadTaskInlineForm])
+  }, [loadTaskInlineForm, taskCategory, taskStatus, taskValue])
 
   function handleUndoEditClick() {
     setTaskValue(initialTaskCopy.value)

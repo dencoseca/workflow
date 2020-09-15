@@ -45,7 +45,7 @@ function ProjectPanel(props) {
     return () => {
       ourRequest.cancel()
     }
-  }, [projectId])
+  }, [appDispatch, projectId])
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
@@ -75,14 +75,14 @@ function ProjectPanel(props) {
     return () => {
       ourRequest.cancel()
     }
-  }, [newTaskRequest])
+  }, [appDispatch, newTaskRequest, projectId, taskCategory, taskStatus, taskValue])
 
   useEffect(() => {
     if (editingProjectName) {
       setInitialProjectName(projectName)
       projectNameInputEl.current.focus()
     }
-  }, [editingProjectName])
+  }, [editingProjectName, projectName])
 
   function handleNewTaskRequest(e) {
     e.preventDefault()

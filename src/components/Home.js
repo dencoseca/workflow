@@ -37,7 +37,7 @@ function Home() {
     return () => {
       ourRequest.cancel()
     }
-  }, [fetchProjectsRequest])
+  }, [appDispatch, appState.user.userId, fetchProjectsRequest])
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
@@ -70,7 +70,7 @@ function Home() {
     return () => {
       ourRequest.cancel()
     }
-  }, [newProjectRequest])
+  }, [appDispatch, appState.user.userId, newProjectName, newProjectRequest])
 
   function handleNewProjectRequest(e) {
     e.preventDefault()
