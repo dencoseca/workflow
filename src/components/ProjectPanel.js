@@ -21,9 +21,9 @@ function ProjectPanel(props) {
   const projectNameInputEl = useRef(null)
 
   useEffect(() => {
+    const ourRequest = axios.CancelToken.source()
     if (projectId) {
       setProjectIsLoading(true)
-      const ourRequest = axios.CancelToken.source()
       async function fetchProject() {
         try {
           const response = await axios.post('/project/findone', { projectId }, { cancelToken: ourRequest.token })
@@ -36,53 +36,44 @@ function ProjectPanel(props) {
             setProjectIsLoading(false)
             setEditingProjectName(false)
           }
-        } catch (e) {
-          console.log('There was a problem or the request was cancelled.')
+        } catch (err) {
+          console.log(err, 'There was a problem or the request was cancelled.')
         }
       }
       fetchProject()
-      return () => {
-        ourRequest.cancel()
-      }
+    }
+    return () => {
+      ourRequest.cancel()
     }
   }, [projectId])
 
   useEffect(() => {
+    const ourRequest = axios.CancelToken.source()
     if (newTaskRequest > 0) {
-      if (!taskValue) {
-        appDispatch({ type: 'flashMessage', value: 'Task value cannot be blank', color: 'danger' })
-      } else if (taskCategory === 'Category') {
-        appDispatch({ type: 'flashMessage', value: 'Task category cannot be blank', color: 'danger' })
-      } else if (taskStatus === 'Status') {
-        appDispatch({ type: 'flashMessage', value: 'Task Status cannot be blank', color: 'danger' })
-      } else {
-        const ourRequest = axios.CancelToken.source()
-
-        async function createNewTask() {
-          try {
-            const response = await axios.post(
-              '/task/create',
-              { projectId, value: taskValue.trim(), category: taskCategory, status: taskStatus },
-              { cancelToken: ourRequest.token }
-            )
-            if (response.data.errorMessage) {
-              appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
-            } else {
-              appDispatch({ type: 'flashMessage', value: 'Task successfully created', color: 'success' })
-              setProjectTasks(prev => [...prev, response.data])
-              setTaskValue('')
-              setTaskCategory('Category')
-              setTaskStatus('Status')
-            }
-          } catch (err) {
-            console.log('There was a problem or the request was cancelled.')
+      async function createNewTask() {
+        try {
+          const response = await axios.post(
+            '/task/create',
+            { projectId, value: taskValue.trim(), category: taskCategory, status: taskStatus },
+            { cancelToken: ourRequest.token }
+          )
+          if (response.data.errorMessage) {
+            appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+          } else {
+            appDispatch({ type: 'flashMessage', value: 'Task successfully created', color: 'success' })
+            setProjectTasks(prev => [...prev, response.data])
+            setTaskValue('')
+            setTaskCategory('Category')
+            setTaskStatus('Status')
           }
-        }
-        createNewTask()
-        return () => {
-          ourRequest.cancel()
+        } catch (err) {
+          console.log(err, 'There was a problem or the request was cancelled.')
         }
       }
+      createNewTask()
+    }
+    return () => {
+      ourRequest.cancel()
     }
   }, [newTaskRequest])
 
@@ -95,7 +86,15 @@ function ProjectPanel(props) {
 
   function handleNewTaskRequest(e) {
     e.preventDefault()
-    setNewTaskRequest(prev => prev + 1)
+    if (!taskValue) {
+      appDispatch({ type: 'flashMessage', value: 'Task value cannot be blank', color: 'danger' })
+    } else if (taskCategory === 'Category') {
+      appDispatch({ type: 'flashMessage', value: 'Task category cannot be blank', color: 'danger' })
+    } else if (taskStatus === 'Status') {
+      appDispatch({ type: 'flashMessage', value: 'Task Status cannot be blank', color: 'danger' })
+    } else {
+      setNewTaskRequest(prev => prev + 1)
+    }
   }
 
   function handleDeleteTaskClick(e) {
@@ -109,21 +108,18 @@ function ProjectPanel(props) {
           appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
         } else {
           appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
-          setProjectTasks(prev => prev.filter(task => task._id != clickedTaskId))
+          setProjectTasks(prev => prev.filter(task => task._id !== clickedTaskId))
         }
       } catch (err) {
-        console.log('There was a problem or the request was cancelled.')
+        console.log(err, 'There was a problem or the request was cancelled.')
       }
     }
     deleteTask()
-    return () => {
-      ourRequest.cancel()
-    }
   }
 
   function updateProjectName(e) {
     e.preventDefault()
-    if (projectName.trim() != initialProjectName) {
+    if (projectName.trim() !== initialProjectName) {
       const ourRequest = axios.CancelToken.source()
 
       async function updateProjectName() {
@@ -142,13 +138,10 @@ function ProjectPanel(props) {
             props.setFetchProjectsRequest(prev => prev + 1)
           }
         } catch (err) {
-          console.log('There was a problem or the request was cancelled.')
+          console.log(err, 'There was a problem or the request was cancelled.')
         }
       }
       updateProjectName()
-      return () => {
-        ourRequest.cancel()
-      }
     } else {
       setEditingProjectName(false)
     }
@@ -187,7 +180,7 @@ function ProjectPanel(props) {
                     </form>
                     <i onClick={e => handleUndoEditClick()} className="project-panel--project-form-highlight-undo fa fa-undo ml-3"></i>
                   </div>
-                  {projectName.trim() != initialProjectName && <p className="help is-primary mt-2">press ENTER to confirm edit</p>}
+                  {projectName.trim() !== initialProjectName && <p className="help is-primary mt-2">press ENTER to confirm edit</p>}
                 </>
               ) : (
                 <>

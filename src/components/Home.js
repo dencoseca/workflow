@@ -29,8 +29,8 @@ function Home() {
           setProjects(response.data)
           setProjectsAreLoading(false)
         }
-      } catch (e) {
-        console.log('There was a problem or the request was cancelled.')
+      } catch (err) {
+        console.log(err, 'There was a problem or the request was cancelled.')
       }
     }
     fetchProjects()
@@ -40,12 +40,11 @@ function Home() {
   }, [fetchProjectsRequest])
 
   useEffect(() => {
+    const ourRequest = axios.CancelToken.source()
     if (newProjectRequest > 0) {
       if (!newProjectName) {
         appDispatch({ type: 'flashMessage', value: 'New project name cannot be blank', color: 'danger' })
       } else {
-        const ourRequest = axios.CancelToken.source()
-
         async function createNewProject() {
           try {
             const response = await axios.post(
@@ -61,15 +60,15 @@ function Home() {
               setNewProjectName('')
               setSelectedProject(response.data._id)
             }
-          } catch (e) {
-            console.log('There was a problem or the request was cancelled.')
+          } catch (err) {
+            console.log(err, 'There was a problem or the request was cancelled.')
           }
         }
         createNewProject()
-        return () => {
-          ourRequest.cancel()
-        }
       }
+    }
+    return () => {
+      ourRequest.cancel()
     }
   }, [newProjectRequest])
 
@@ -91,14 +90,11 @@ function Home() {
           appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'warning' })
           selectedProject === clickedProjectId && setSelectedProject('')
         }
-      } catch (e) {
-        console.log('There was a problem or the request was cancelled.')
+      } catch (err) {
+        console.log(err, 'There was a problem or the request was cancelled.')
       }
     }
     deleteProject()
-    return () => {
-      ourRequest.cancel()
-    }
   }
 
   return (

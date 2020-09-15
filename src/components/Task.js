@@ -71,13 +71,10 @@ function Task(props) {
           setLoadTaskInlineForm(false)
         }
       } catch (err) {
-        console.log('There was a problem or the request was cancelled.')
+        console.log(err, 'There was a problem or the request was cancelled.')
       }
     }
     updateTask()
-    return () => {
-      ourRequest.cancel()
-    }
   }
 
   useEffect(() => {

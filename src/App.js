@@ -64,11 +64,7 @@ function App() {
       <DispatchContext.Provider value={dispatch}>
         <FlashMessages messages={state.flashMessages} />
         <Header />
-        {state.waitingForServer ? (
-          <CenteredInContainer minHeight="500px">
-            <LoadingDotsIcon />
-          </CenteredInContainer>
-        ) : state.loggedIn ? (
+        {state.loggedIn ? (
           <Home />
         ) : (
           <Welcome />

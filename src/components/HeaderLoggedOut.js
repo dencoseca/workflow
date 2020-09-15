@@ -3,36 +3,44 @@ import axios from 'axios'
 import DispatchContext from '../DispatchContext'
 
 function HeaderLoggedOut() {
+  const appDispatch = useContext(DispatchContext)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loginRequestCount, setLoginRequestCount] = useState(0)
 
-  const appDispatch = useContext(DispatchContext)
-
   useEffect(() => {
+    const ourRequest = axios.CancelToken.source()
     if (loginRequestCount > 0) {
-      appDispatch({ type: 'startServerRequest' })
+      if (!username.trim()) {
+        appDispatch({ type: 'flashMessage', value: 'Cannot login without username', color: 'danger' })
+      } else if (!password.trim()) {
+        appDispatch({ type: 'flashMessage', value: 'Cannot login without password', color: 'danger' })
+      } else {
+        appDispatch({ type: 'startServerRequest' })
 
-      const ourRequest = axios.CancelToken.source()
-
-      async function login() {
-        try {
-          const response = await axios.post('/user/login', { username, password }, { cancelToken: ourRequest.token })
-          if (response.data.errorMessage) {
-            appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
-            appDispatch({ type: 'stopServerRequest' })
-          } else {
-            appDispatch({ type: 'login', value: response.data })
-            appDispatch({ type: 'stopServerRequest' })
+        async function login() {
+          try {
+            const response = await axios.post(
+              '/user/login',
+              { username: username.trim(), password: password.trim() },
+              { cancelToken: ourRequest.token }
+            )
+            if (response.data.errorMessage) {
+              appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+              appDispatch({ type: 'stopServerRequest' })
+            } else {
+              appDispatch({ type: 'login', value: response.data })
+              appDispatch({ type: 'stopServerRequest' })
+            }
+          } catch (err) {
+            console.log(err, 'There was a problem or the request was cancelled.')
           }
-        } catch (e) {
-          console.log('There was a problem or the request was cancelled.')
         }
+        login()
       }
-      login()
-      return () => {
-        ourRequest.cancel()
-      }
+    }
+    return () => {
+      ourRequest.cancel()
     }
   }, [loginRequestCount])
 
