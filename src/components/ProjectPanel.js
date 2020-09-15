@@ -9,7 +9,6 @@ import TaskInlineForm from './TaskInlineForm'
 function ProjectPanel(props) {
   const appDispatch = useContext(DispatchContext)
   const projectId = props.projectId
-  const [project, setProject] = useState({})
   const [projectTasks, setProjectTasks] = useState([])
   const [taskValue, setTaskValue] = useState('')
   const [taskCategory, setTaskCategory] = useState('Category')
@@ -31,7 +30,6 @@ function ProjectPanel(props) {
           if (response.data.errorMessage) {
             appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
           } else {
-            setProject(response.data)
             setProjectTasks(response.data.tasks)
             setProjectName(response.data.name)
             setInitialProjectName(response.data.name)

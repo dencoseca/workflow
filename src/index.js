@@ -6,7 +6,7 @@ import './index.scss'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import axios from 'axios'
-axios.defaults.baseURL = 'https://workflow-backend.herokuapp.com'
+axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT
 
 // Uncoment to debug CSS
 // import './debug.css'
