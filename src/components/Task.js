@@ -85,7 +85,8 @@ function Task(props) {
         status: taskStatus
       })
     }
-  }, [loadTaskInlineForm, taskCategory, taskStatus, taskValue])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadTaskInlineForm])
 
   function handleUndoEditClick() {
     setTaskValue(initialTaskCopy.value)

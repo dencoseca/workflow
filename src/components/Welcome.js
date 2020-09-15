@@ -44,7 +44,8 @@ function Welcome() {
     return () => {
       ourRequest.cancel()
     }
-  }, [appDispatch, password, signUpRequestCount, username])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [signUpRequestCount])
 
   function handleSubmit(e) {
     e.preventDefault()

@@ -55,7 +55,8 @@ function App() {
       localStorage.removeItem('workflowUserId')
       localStorage.removeItem('workflowUsername')
     }
-  }, [state.loggedIn, state.user.userId, state.user.username])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.loggedIn])
 
   return (
     <StateContext.Provider value={state}>

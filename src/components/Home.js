@@ -37,7 +37,8 @@ function Home() {
     return () => {
       ourRequest.cancel()
     }
-  }, [appDispatch, appState.user.userId, fetchProjectsRequest])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchProjectsRequest])
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
@@ -70,7 +71,8 @@ function Home() {
     return () => {
       ourRequest.cancel()
     }
-  }, [appDispatch, appState.user.userId, newProjectName, newProjectRequest])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newProjectRequest])
 
   function handleNewProjectRequest(e) {
     e.preventDefault()

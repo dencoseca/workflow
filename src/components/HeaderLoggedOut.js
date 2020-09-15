@@ -42,7 +42,8 @@ function HeaderLoggedOut() {
     return () => {
       ourRequest.cancel()
     }
-  }, [appDispatch, loginRequestCount, password, username])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginRequestCount])
 
   function handleKeyDown(e) {
     if (e.key === 'Enter') {

@@ -45,7 +45,8 @@ function ProjectPanel(props) {
     return () => {
       ourRequest.cancel()
     }
-  }, [appDispatch, projectId])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectId])
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
@@ -75,14 +76,16 @@ function ProjectPanel(props) {
     return () => {
       ourRequest.cancel()
     }
-  }, [appDispatch, newTaskRequest, projectId, taskCategory, taskStatus, taskValue])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newTaskRequest])
 
   useEffect(() => {
     if (editingProjectName) {
       setInitialProjectName(projectName)
       projectNameInputEl.current.focus()
     }
-  }, [editingProjectName, projectName])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editingProjectName])
 
   function handleNewTaskRequest(e) {
     e.preventDefault()
