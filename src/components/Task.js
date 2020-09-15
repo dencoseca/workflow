@@ -11,6 +11,10 @@ function Task(props) {
   const [taskStatus, setTaskStatus] = useState(props.task.status)
   const [initialTaskCopy, setInitialTaskCopy] = useState({})
 
+  // -----------------------
+  // SETUP TASK DETAIL ELEMENTS
+  // -----------------------
+
   const lastUpdated = new Date(props.task.updatedAt)
   let categoryColor = ''
   let statusColor = ''
@@ -49,6 +53,23 @@ function Task(props) {
       statusColor = ''
   }
 
+  // -----------------------
+  // UPDATE A TASK
+  // -----------------------
+
+  // Snapshot the current task values
+  useEffect(() => {
+    if (loadTaskInlineForm) {
+      setInitialTaskCopy({
+        value: taskValue,
+        category: taskCategory,
+        status: taskStatus
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadTaskInlineForm])
+
+  // Process the update request
   function handleUpdateTaskClick(e) {
     e.preventDefault()
     const taskId = e.target.dataset.task
@@ -77,17 +98,7 @@ function Task(props) {
     updateTask()
   }
 
-  useEffect(() => {
-    if (loadTaskInlineForm) {
-      setInitialTaskCopy({
-        value: taskValue,
-        category: taskCategory,
-        status: taskStatus
-      })
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadTaskInlineForm])
-
+  // Reset task values if edit is cancelled
   function handleUndoEditClick() {
     setTaskValue(initialTaskCopy.value)
     setTaskCategory(initialTaskCopy.category)

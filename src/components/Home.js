@@ -17,6 +17,10 @@ function Home() {
   const [fetchProjectsRequest, setFetchProjectsRequest] = useState(0)
   const [selectedProject, setSelectedProject] = useState('')
 
+  // -----------------------
+  // FETCH ALL THE USER'S PROJECTS ON PAGE LOAD
+  // -----------------------
+
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
 
@@ -37,15 +41,21 @@ function Home() {
     return () => {
       ourRequest.cancel()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchProjectsRequest])
+
+  // -----------------------
+  // CREATE A NEW PROJECT
+  // -----------------------
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
     if (newProjectRequest > 0) {
+      // Input validation
       if (!newProjectName) {
         appDispatch({ type: 'flashMessage', value: 'New project name cannot be blank', color: 'danger' })
       } else {
+        // Axios post to API
         async function createNewProject() {
           try {
             const response = await axios.post(
@@ -71,7 +81,7 @@ function Home() {
     return () => {
       ourRequest.cancel()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newProjectRequest])
 
   function handleNewProjectRequest(e) {
@@ -79,9 +89,16 @@ function Home() {
     setNewProjectRequest(prev => prev + 1)
   }
 
+  // -----------------------
+  // DELETE A PROJECT
+  // -----------------------
+
   function handleProjectDelete(e) {
-    const ourRequest = axios.CancelToken.source()
+    // Grab the projects ID
     const clickedProjectId = e.target.dataset.project
+
+    const ourRequest = axios.CancelToken.source()
+
     async function deleteProject() {
       try {
         const response = await axios.post('/project/delete', { projectId: clickedProjectId }, { cancelToken: ourRequest.token })

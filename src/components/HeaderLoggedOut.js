@@ -8,9 +8,14 @@ function HeaderLoggedOut() {
   const [password, setPassword] = useState('')
   const [loginRequestCount, setLoginRequestCount] = useState(0)
 
+  // -----------------------
+  // PROCESS A LOGIN REQUEST
+  // -----------------------
+
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
     if (loginRequestCount > 0) {
+      // Input validation
       if (!username.trim()) {
         appDispatch({ type: 'flashMessage', value: 'Cannot login without username', color: 'danger' })
       } else if (!password.trim()) {
@@ -18,6 +23,7 @@ function HeaderLoggedOut() {
       } else {
         appDispatch({ type: 'startServerRequest' })
 
+        // Login with API
         async function login() {
           try {
             const response = await axios.post(
@@ -42,7 +48,7 @@ function HeaderLoggedOut() {
     return () => {
       ourRequest.cancel()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginRequestCount])
 
   function handleKeyDown(e) {

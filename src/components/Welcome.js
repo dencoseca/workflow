@@ -13,6 +13,23 @@ function Welcome() {
   const [password, setPassword] = useState('')
   const [signUpRequestCount, setSignUpRequestCount] = useState(0)
 
+  // -----------------------
+  // PROCESS A SIGN UP REQUEST
+  // -----------------------
+
+  // INPUT VALIDATION
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (!username.trim()) {
+      appDispatch({ type: 'flashMessage', value: 'Username cannot be blank', color: 'danger' })
+    } else if (!password.trim()) {
+      appDispatch({ type: 'flashMessage', value: 'Password cannot be blank', color: 'danger' })
+    } else if (username && password) {
+      setSignUpRequestCount(prev => prev + 1)
+    }
+  }
+
+  // REGISTER USER AND LOGIN
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
     if (signUpRequestCount > 0) {
@@ -44,19 +61,8 @@ function Welcome() {
     return () => {
       ourRequest.cancel()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signUpRequestCount])
-
-  function handleSubmit(e) {
-    e.preventDefault()
-    if (!username.trim()) {
-      appDispatch({ type: 'flashMessage', value: 'Username cannot be blank', color: 'danger' })
-    } else if (!password.trim()) {
-      appDispatch({ type: 'flashMessage', value: 'Password cannot be blank', color: 'danger' })
-    } else if (username && password) {
-      setSignUpRequestCount(prev => prev + 1)
-    }
-  }
 
   return (
     <Page title="Welcome">

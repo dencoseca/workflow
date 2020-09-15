@@ -11,6 +11,10 @@ import FlashMessages from './components/FlashMessages'
 import Home from './components/Home'
 
 function App() {
+  // -----------------------
+  // GLOBAL STATE
+  // -----------------------
+
   const initialState = {
     loggedIn: Boolean(localStorage.getItem('workflowUserId')),
     waitingForServer: false,
@@ -20,6 +24,10 @@ function App() {
       username: localStorage.getItem('workflowUsername') || ''
     }
   }
+
+  // -----------------------
+  // GLOBAL DISPATCH
+  // -----------------------
 
   function reducer(draft, action) {
     switch (action.type) {
@@ -47,6 +55,10 @@ function App() {
 
   const [state, dispatch] = useImmerReducer(reducer, initialState)
 
+  // -----------------------
+  // STORE USER DETAILS IN BROWSER LOCAL STORAGE
+  // -----------------------
+
   useEffect(() => {
     if (state.loggedIn) {
       localStorage.setItem('workflowUserId', state.user.userId)
@@ -55,7 +67,7 @@ function App() {
       localStorage.removeItem('workflowUserId')
       localStorage.removeItem('workflowUsername')
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.loggedIn])
 
   return (
@@ -63,11 +75,7 @@ function App() {
       <DispatchContext.Provider value={dispatch}>
         <FlashMessages messages={state.flashMessages} />
         <Header />
-        {state.loggedIn ? (
-          <Home />
-        ) : (
-          <Welcome />
-        )}
+        {state.loggedIn ? <Home /> : <Welcome />}
         <Footer />
       </DispatchContext.Provider>
     </StateContext.Provider>

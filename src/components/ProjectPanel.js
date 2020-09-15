@@ -20,6 +20,10 @@ function ProjectPanel(props) {
   const [initialProjectName, setInitialProjectName] = useState('')
   const projectNameInputEl = useRef(null)
 
+  // -----------------------
+  // FETCH ALL THE PROJECT'S TASK ON COMPONENT MOUNT
+  // -----------------------
+
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
     if (projectId) {
@@ -45,8 +49,12 @@ function ProjectPanel(props) {
     return () => {
       ourRequest.cancel()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId])
+
+  // -----------------------
+  // CREATE A NEW TASK
+  // -----------------------
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
@@ -76,17 +84,10 @@ function ProjectPanel(props) {
     return () => {
       ourRequest.cancel()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newTaskRequest])
 
-  useEffect(() => {
-    if (editingProjectName) {
-      setInitialProjectName(projectName)
-      projectNameInputEl.current.focus()
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editingProjectName])
-
+  // Input validation
   function handleNewTaskRequest(e) {
     e.preventDefault()
     if (!taskValue) {
@@ -100,26 +101,20 @@ function ProjectPanel(props) {
     }
   }
 
-  function handleDeleteTaskClick(e) {
-    const clickedTaskId = e.target.dataset.task
-    const ourRequest = axios.CancelToken.source()
+  // -----------------------
+  // EDIT A TASK
+  // -----------------------
 
-    async function deleteTask() {
-      try {
-        const response = await axios.post('/task/delete', { taskId: clickedTaskId }, { cancelToken: ourRequest.token })
-        if (response.data.errorMessage) {
-          appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
-        } else {
-          appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
-          setProjectTasks(prev => prev.filter(task => task._id !== clickedTaskId))
-        }
-      } catch (err) {
-        console.log(err, 'There was a problem or the request was cancelled.')
-      }
+  // Snapshot current task values and put focus on the input
+  useEffect(() => {
+    if (editingProjectName) {
+      setInitialProjectName(projectName)
+      projectNameInputEl.current.focus()
     }
-    deleteTask()
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editingProjectName])
 
+  // Handle the update
   function updateProjectName(e) {
     e.preventDefault()
     if (projectName.trim() !== initialProjectName) {
@@ -150,9 +145,34 @@ function ProjectPanel(props) {
     }
   }
 
+  // Reset task values in state if edit gets cancelled
   function handleUndoEditClick() {
     setProjectName(initialProjectName)
     setEditingProjectName(false)
+  }
+
+  // -----------------------
+  // DELETE A TASK
+  // -----------------------
+
+  function handleDeleteTaskClick(e) {
+    const clickedTaskId = e.target.dataset.task
+    const ourRequest = axios.CancelToken.source()
+
+    async function deleteTask() {
+      try {
+        const response = await axios.post('/task/delete', { taskId: clickedTaskId }, { cancelToken: ourRequest.token })
+        if (response.data.errorMessage) {
+          appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+        } else {
+          appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
+          setProjectTasks(prev => prev.filter(task => task._id !== clickedTaskId))
+        }
+      } catch (err) {
+        console.log(err, 'There was a problem or the request was cancelled.')
+      }
+    }
+    deleteTask()
   }
 
   return (
