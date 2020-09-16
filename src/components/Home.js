@@ -17,9 +17,9 @@ function Home() {
   const [fetchProjectsRequest, setFetchProjectsRequest] = useState(0)
   const [selectedProject, setSelectedProject] = useState('')
 
-  // -----------------------
+  // -------------------------------------------------- //
   // FETCH ALL THE USER'S PROJECTS ON PAGE LOAD
-  // -----------------------
+  // -------------------------------------------------- //
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
@@ -44,9 +44,9 @@ function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchProjectsRequest])
 
-  // -----------------------
+  // -------------------------------------------------- //
   // CREATE A NEW PROJECT
-  // -----------------------
+  // -------------------------------------------------- //
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
@@ -89,9 +89,9 @@ function Home() {
     setNewProjectRequest(prev => prev + 1)
   }
 
-  // -----------------------
+  // -------------------------------------------------- //
   // DELETE A PROJECT
-  // -----------------------
+  // -------------------------------------------------- //
 
   function handleProjectDelete(e) {
     // Grab the projects ID

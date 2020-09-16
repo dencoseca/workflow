@@ -20,9 +20,9 @@ function ProjectPanel(props) {
   const [initialProjectName, setInitialProjectName] = useState('')
   const projectNameInputEl = useRef(null)
 
-  // -----------------------
+  // -------------------------------------------------- //
   // FETCH ALL THE PROJECT'S TASK ON COMPONENT MOUNT
-  // -----------------------
+  // -------------------------------------------------- //
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
@@ -52,9 +52,9 @@ function ProjectPanel(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId])
 
-  // -----------------------
+  // -------------------------------------------------- //
   // CREATE A NEW TASK
-  // -----------------------
+  // -------------------------------------------------- //
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()
@@ -101,9 +101,9 @@ function ProjectPanel(props) {
     }
   }
 
-  // -----------------------
+  // -------------------------------------------------- //
   // EDIT A TASK
-  // -----------------------
+  // -------------------------------------------------- //
 
   // Snapshot current task values and put focus on the input
   useEffect(() => {
@@ -151,9 +151,9 @@ function ProjectPanel(props) {
     setEditingProjectName(false)
   }
 
-  // -----------------------
+  // -------------------------------------------------- //
   // DELETE A TASK
-  // -----------------------
+  // -------------------------------------------------- //
 
   function handleDeleteTaskClick(e) {
     const clickedTaskId = e.target.dataset.task

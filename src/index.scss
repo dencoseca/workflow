@@ -190,6 +190,8 @@
 
   &--delete {
     cursor: pointer;
+    height: inherit;
+    padding-top: 3px;
     transition: all 0.1s ease-in;
 
     &:hover {

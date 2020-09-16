@@ -15,14 +15,14 @@ function TaskInlineForm(props) {
     <form className="task-inline-form control" onSubmit={e => props.submitTask(e)} data-task={props.taskId}>
       <div className="field is-horizontal">
         <div className="field-body">
-              <input
-                onChange={e => props.setTaskValue(e.target.value)}
-                value={props.taskValue}
-                className={`task-inline-form--value quiet-input${props.withFocus ? '' : '-no-focus'} input is-shadowless is-radiusless pl-0 mr-4`}
-                type="text"
-                placeholder={props.inputPlaceholderText}
-                ref={updateTaskInputEl}
-              ></input>
+          <input
+            onChange={e => props.setTaskValue(e.target.value)}
+            value={props.taskValue}
+            className={`task-inline-form--value quiet-input${props.withFocus ? '' : '-no-focus'} input is-shadowless is-radiusless pl-0 mr-4`}
+            type="text"
+            placeholder={props.inputPlaceholderText}
+            ref={updateTaskInputEl}
+          ></input>
           <div className="field is-narrow">
             <div className="control">
               <select className="task-inline-form--select" value={props.taskCategory} onChange={e => props.setTaskCategory(e.target.value)}>

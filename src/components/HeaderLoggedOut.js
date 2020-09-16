@@ -8,9 +8,9 @@ function HeaderLoggedOut() {
   const [password, setPassword] = useState('')
   const [loginRequestCount, setLoginRequestCount] = useState(0)
 
-  // -----------------------
+  // -------------------------------------------------- //
   // PROCESS A LOGIN REQUEST
-  // -----------------------
+  // -------------------------------------------------- //
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source()

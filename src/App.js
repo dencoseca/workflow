@@ -11,9 +11,9 @@ import FlashMessages from './components/FlashMessages'
 import Home from './components/Home'
 
 function App() {
-  // -----------------------
+  // -------------------------------------------------- //
   // GLOBAL STATE
-  // -----------------------
+  // -------------------------------------------------- //
 
   const initialState = {
     loggedIn: Boolean(localStorage.getItem('workflowUserId')),
@@ -25,9 +25,9 @@ function App() {
     }
   }
 
-  // -----------------------
+  // -------------------------------------------------- //
   // GLOBAL DISPATCH
-  // -----------------------
+  // -------------------------------------------------- //
 
   function reducer(draft, action) {
     switch (action.type) {
@@ -55,9 +55,9 @@ function App() {
 
   const [state, dispatch] = useImmerReducer(reducer, initialState)
 
-  // -----------------------
+  // -------------------------------------------------- //
   // STORE USER DETAILS IN BROWSER LOCAL STORAGE
-  // -----------------------
+  // -------------------------------------------------- //
 
   useEffect(() => {
     if (state.loggedIn) {

@@ -13,9 +13,9 @@ function Welcome() {
   const [password, setPassword] = useState('')
   const [signUpRequestCount, setSignUpRequestCount] = useState(0)
 
-  // -----------------------
+  // -------------------------------------------------- //
   // PROCESS A SIGN UP REQUEST
-  // -----------------------
+  // -------------------------------------------------- //
 
   // INPUT VALIDATION
   function handleSubmit(e) {

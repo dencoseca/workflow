@@ -11,9 +11,9 @@ function Task(props) {
   const [taskStatus, setTaskStatus] = useState(props.task.status)
   const [initialTaskCopy, setInitialTaskCopy] = useState({})
 
-  // -----------------------
+  // -------------------------------------------------- //
   // SETUP TASK DETAIL ELEMENTS
-  // -----------------------
+  // -------------------------------------------------- //
 
   const lastUpdated = new Date(props.task.updatedAt)
   let categoryColor = ''
@@ -53,9 +53,9 @@ function Task(props) {
       statusColor = ''
   }
 
-  // -----------------------
+  // -------------------------------------------------- //
   // UPDATE A TASK
-  // -----------------------
+  // -------------------------------------------------- //
 
   // Snapshot the current task values
   useEffect(() => {
@@ -134,10 +134,10 @@ function Task(props) {
           <div className={`task--category button is-static is-small is-light is-${categoryColor} mr-3`}>{taskCategory}</div>
           <div className={`task--status button is-static is-small is-light is-${statusColor} mr-4`}>{taskStatus}</div>
           <span className="task--edit mr-3">
-            <i onClick={e => setLoadTaskInlineForm(true)} data-task={props.task._id} className="fa fa-edit"></i>
+            <i onClick={e => setLoadTaskInlineForm(true)} data-task={props.task._id} className="fas fa-edit"></i>
           </span>
           <span className="task--delete">
-            <i onClick={e => props.handleDeleteTaskClick(e)} data-task={props.task._id} className="fa fa-times"></i>
+            <i onClick={e => props.handleDeleteTaskClick(e)} data-task={props.task._id} className="fas fa-times"></i>
           </span>
         </div>
       )}

@@ -6,7 +6,7 @@ function ProjectListItem(props) {
       <span className="icon">
         <i
           onClick={e => props.handleProjectDelete(e)}
-          className="project-list--item-delete fa fa-trash has-text-danger"
+          className="project-list--item-delete fas fa-trash has-text-danger"
           data-project={props.project._id}
         ></i>
       </span>
