@@ -76,6 +76,10 @@
 
   &--project-list-column {
     width: 25%;
+
+    form {
+      padding-right: 20px;
+    }
   }
 
   &--project-panel-column {
@@ -436,24 +440,31 @@ select {
 
 @media screen and (max-width: 1024px) {
   .home {
+    &--project-list-column {
+      padding: 0 30px;
 
-  &--project-list-container {
-  }
+      form {
+        padding-right: 0;
+      }
+    }
 
-  &--project-list-column {
-    padding: 0 30px;
+    &--project-panel-column {
+      padding: 0 30px;
+    }
   }
-
-  &--project-panel-column {
-    padding: 0 30px;
-  }
-}
 }
 
 @media screen and (max-width: 768px) {
   .welcome {
     &--title {
       font-size: 3rem;
+    }
+  }
+
+  .home {
+    &--project-list-column,
+    &--project-panel-column {
+      padding: 0 15px;
     }
   }
 }
