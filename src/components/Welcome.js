@@ -71,16 +71,16 @@ function Welcome() {
           <LoadingDotsIcon />
         </CenteredInContainer>
       ) : (
-        <div className="welcome--main-container columns">
-          <div className="welcome--sub-container column is-one-half">
+        <div className="welcome--main-container">
+          <div className="welcome--sub-container">
             <h1 className="welcome--title mb-5">Let's Get Started!</h1>
             <p className="welcome--subtitle has-text-grey">
               Create projects and tasks and manage your progress. We think project management should be simple. Just sign up or login to start
               organising your workflow.
             </p>
           </div>
-          <div className="welcome--sub-container column is-one-half">
-            <form onSubmit={e => handleSubmit(e)} className="px-6">
+          <div className="welcome--sub-container">
+            <form onSubmit={e => handleSubmit(e)}>
               <div className="field">
                 <label htmlFor="username" className="label">
                   Username

@@ -19,15 +19,31 @@
 
 .welcome {
   &--main-container {
+    display: flex;
+    flex-wrap: wrap;
     height: 350px;
     margin-top: 100px;
+    width: 100%;
   }
 
   &--sub-container {
     display: flex;
+    flex-grow: 1;
+    width: 50%;
     flex-direction: column;
     justify-content: center;
     padding: 0 50px 0 50px;
+
+    &:nth-of-type(2) {
+      align-items: center;
+    }
+
+    form {
+      width: 100%;
+      max-width: 600px;
+      min-width: 500px;
+      padding: 0 50px;
+    }
   }
 
   &--title {
@@ -344,15 +360,47 @@
 }
 
 select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url('./images/down-arrow.png')
-      !important;
-    background-repeat: no-repeat, repeat !important;
-    background-position: right .7em top 50%, 0 0 !important;
-    background-size: .65em auto, 100% !important;
-    border: none;
-    border-radius: 0px;
-    padding: 0em 1em 0em .35em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('./images/down-arrow.png') !important;
+  background-repeat: no-repeat, repeat !important;
+  background-position: right 0.7em top 50%, 0 0 !important;
+  background-size: 0.65em auto, 100% !important;
+  border: none;
+  border-radius: 0px;
+  padding: 0em 1em 0em 0.35em;
+}
+
+// MEDIA QUERIES
+@media screen and (max-width: 1216px) {
+  .welcome {
+    &--sub-container {
+      width: 100%;
+      align-items: center;
+
+      &:nth-of-type(2) {
+        margin-top: 60px;
+      }
+    }
+
+    &--title {
+      text-align: center;
+      font-size: 4rem;
+    }
+
+    &--subtitle {
+      max-width: 400px;
+      text-align: center;
+      font-size: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .welcome {
+    &--title {
+      font-size: 3rem;
+    }
+  }
 }
