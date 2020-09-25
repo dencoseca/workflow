@@ -5,7 +5,9 @@ function ProjectListItem(props) {
     <div className="project-list--item mt-1">
       <span className="icon">
         <i
-          onClick={e => props.handleProjectDelete(e)}
+          onClick={e => {
+            if (window.confirm('Are you sure you want to delete this project?')) props.handleProjectDelete(e)
+          }}
           className="project-list--item-delete fas fa-trash has-text-danger"
           data-project={props.project._id}
         ></i>
