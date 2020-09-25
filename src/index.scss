@@ -121,17 +121,20 @@
 }
 
 .project-panel {
-  height: 500px;
-  min-height: 500px;
   border-radius: 10px;
   box-shadow: inset 0px 0px 10px 5px rgba(0, 0, 0, 0.06);
+  height: fit-content;
+  min-height: 500px;
 
   &--no-project {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
+    min-height: 500px;
     width: 100%;
+    padding: 40px;
+    text-align: center;
   }
 
   &--project {
