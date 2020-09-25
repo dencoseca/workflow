@@ -119,8 +119,8 @@ function Home() {
   return (
     <Page title="Home">
       <div className="home">
-        <div className="columns">
-          <div className="home--project-list column is-one-quarter">
+        <div className="home--project-list-container">
+          <div className="home--project-list-column">
             <h3 className="home--project-list-title subtitle is-3 mb-6">
               <strong className="has-text-primary">{appState.user.username}'s</strong> Projects
             </h3>
@@ -151,7 +151,7 @@ function Home() {
               </div>
             </form>
           </div>
-          <div className="column is-three-quarters">
+          <div className="home--project-panel-column">
             <ProjectPanel projectId={selectedProject} setFetchProjectsRequest={setFetchProjectsRequest} />
           </div>
         </div>
