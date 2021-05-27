@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import axios from 'axios'
-import DispatchContext from '../DispatchContext'
+import DispatchContext from '../context/DispatchContext'
 import LoadingDotsIcon from './LoadingDotsIcon'
 import CenteredInContainer from './CenteredInContainer'
 import Task from './Task'

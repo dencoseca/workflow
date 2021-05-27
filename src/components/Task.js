@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import TaskInlineForm from './TaskInlineForm'
 import axios from 'axios'
-import DispatchContext from '../DispatchContext'
+import DispatchContext from '../context/DispatchContext'
 
 function Task(props) {
   const appDispatch = useContext(DispatchContext)

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react'
 import Page from './Page'
-import StateContext from '../StateContext'
-import DispatchContext from '../DispatchContext'
+import StateContext from '../context/StateContext'
+import DispatchContext from '../context/DispatchContext'
 import axios from 'axios'
 import CenteredInContainer from './CenteredInContainer'
 import LoadingDotsIcon from './LoadingDotsIcon'
@@ -21,9 +21,17 @@ function Welcome() {
   function handleSubmit(e) {
     e.preventDefault()
     if (!username.trim()) {
-      appDispatch({ type: 'flashMessage', value: 'Username cannot be blank', color: 'danger' })
+      appDispatch({
+        type: 'flashMessage',
+        value: 'Username cannot be blank',
+        color: 'danger',
+      })
     } else if (!password.trim()) {
-      appDispatch({ type: 'flashMessage', value: 'Password cannot be blank', color: 'danger' })
+      appDispatch({
+        type: 'flashMessage',
+        value: 'Password cannot be blank',
+        color: 'danger',
+      })
     } else if (username && password) {
       setSignUpRequestCount(prev => prev + 1)
     }
@@ -43,16 +51,28 @@ function Welcome() {
             { cancelToken: ourRequest.token }
           )
           if (response.data.errorMessage) {
-            appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+            appDispatch({
+              type: 'flashMessage',
+              value: response.data.errorMessage,
+              color: 'danger',
+            })
             appDispatch({ type: 'stopServerRequest' })
           } else if (response.data.successMessage) {
-            appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
+            appDispatch({
+              type: 'flashMessage',
+              value: response.data.successMessage,
+              color: 'success',
+            })
             appDispatch({ type: 'login', value: response.data.user })
             appDispatch({ type: 'stopServerRequest' })
           }
         } catch (err) {
           console.log(err, 'There was a problem or the request was cancelled.')
-          appDispatch({ type: 'flashMessage', value: 'Oops... something went wrong', color: 'danger' })
+          appDispatch({
+            type: 'flashMessage',
+            value: 'Oops... something went wrong',
+            color: 'danger',
+          })
           appDispatch({ type: 'stopServerRequest' })
         }
       }
@@ -75,8 +95,9 @@ function Welcome() {
           <div className="welcome--sub-container">
             <h1 className="welcome--title mb-5">Let's Get Started!</h1>
             <p className="welcome--subtitle has-text-grey">
-              Create projects and tasks and manage your progress. We think project management should be simple. Just sign up or login to start
-              organising your workflow.
+              Create projects and tasks and manage your progress. We think
+              project management should be simple. Just sign up or login to
+              start organising your workflow.
             </p>
           </div>
           <div className="welcome--sub-container">
@@ -113,7 +134,10 @@ function Welcome() {
               </div>
               <div className="control">
                 <button className="button is-primary is-large is-fullwidth mt-5">
-                  <span className="welcome--bold-button-text has-text-weight-bold">Sign up</span> for Workflow
+                  <span className="welcome--bold-button-text has-text-weight-bold">
+                    Sign up
+                  </span>{' '}
+                  for Workflow
                 </button>
               </div>
             </form>

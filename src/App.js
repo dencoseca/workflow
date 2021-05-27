@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import StateContext from './StateContext'
-import DispatchContext from './DispatchContext'
+import StateContext from './context/StateContext'
+import DispatchContext from './context/DispatchContext'
 import { useImmerReducer } from 'use-immer'
 
 // COMPONENTS
@@ -21,8 +21,8 @@ function App() {
     flashMessages: [],
     user: {
       userId: localStorage.getItem('workflowUserId') || '',
-      username: localStorage.getItem('workflowUsername') || ''
-    }
+      username: localStorage.getItem('workflowUsername') || '',
+    },
   }
 
   // -------------------------------------------------- //

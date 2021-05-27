@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Page from './Page'
-import StateContext from '../StateContext'
-import DispatchContext from '../DispatchContext'
+import StateContext from '../context/StateContext'
+import DispatchContext from '../context/DispatchContext'
 import axios from 'axios'
 import LoadingDotsIcon from './LoadingDotsIcon'
 import ProjectPanel from './ProjectPanel.js'
@@ -26,9 +26,17 @@ function Home() {
 
     async function fetchProjects() {
       try {
-        const response = await axios.post('/project/findall', { userId: appState.user.userId }, { cancelToken: ourRequest.token })
+        const response = await axios.post(
+          '/project/findall',
+          { userId: appState.user.userId },
+          { cancelToken: ourRequest.token }
+        )
         if (response.data.errorMessage) {
-          appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+          appDispatch({
+            type: 'flashMessage',
+            value: response.data.errorMessage,
+            color: 'danger',
+          })
         } else {
           setProjects(response.data)
           setProjectsAreLoading(false)
@@ -53,7 +61,11 @@ function Home() {
     if (newProjectRequest > 0) {
       // Input validation
       if (!newProjectName) {
-        appDispatch({ type: 'flashMessage', value: 'New project name cannot be blank', color: 'danger' })
+        appDispatch({
+          type: 'flashMessage',
+          value: 'New project name cannot be blank',
+          color: 'danger',
+        })
       } else {
         // Axios post to API
         async function createNewProject() {
@@ -64,15 +76,26 @@ function Home() {
               { cancelToken: ourRequest.token }
             )
             if (response.data.errorMessage) {
-              appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+              appDispatch({
+                type: 'flashMessage',
+                value: response.data.errorMessage,
+                color: 'danger',
+              })
             } else {
               setProjects(prev => [...prev, response.data])
-              appDispatch({ type: 'flashMessage', value: 'Project successfully created', color: 'success' })
+              appDispatch({
+                type: 'flashMessage',
+                value: 'Project successfully created',
+                color: 'success',
+              })
               setNewProjectName('')
               setSelectedProject(response.data._id)
             }
           } catch (err) {
-            console.log(err, 'There was a problem or the request was cancelled.')
+            console.log(
+              err,
+              'There was a problem or the request was cancelled.'
+            )
           }
         }
         createNewProject()
@@ -101,12 +124,24 @@ function Home() {
 
     async function deleteProject() {
       try {
-        const response = await axios.post('/project/delete', { projectId: clickedProjectId }, { cancelToken: ourRequest.token })
+        const response = await axios.post(
+          '/project/delete',
+          { projectId: clickedProjectId },
+          { cancelToken: ourRequest.token }
+        )
         if (response.data.errorMessage) {
-          appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+          appDispatch({
+            type: 'flashMessage',
+            value: response.data.errorMessage,
+            color: 'danger',
+          })
         } else if (response.data.successMessage) {
           setFetchProjectsRequest(prev => prev + 1)
-          appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'warning' })
+          appDispatch({
+            type: 'flashMessage',
+            value: response.data.successMessage,
+            color: 'warning',
+          })
           selectedProject === clickedProjectId && setSelectedProject('')
         }
       } catch (err) {
@@ -122,7 +157,10 @@ function Home() {
         <div className="home--project-list-container">
           <div className="home--project-list-column">
             <h3 className="home--project-list-title subtitle is-3 mb-6">
-              <strong className="has-text-primary">{appState.user.username}'s</strong> Projects
+              <strong className="has-text-primary">
+                {appState.user.username}'s
+              </strong>{' '}
+              Projects
             </h3>
             {projectsAreLoading ? (
               <LoadingDotsIcon />
@@ -147,12 +185,19 @@ function Home() {
                     placeholder="&#x0002B;  Add a new project"
                   ></input>
                 </div>
-                {newProjectName && <p className="help is-primary">press ENTER to create the new project</p>}
+                {newProjectName && (
+                  <p className="help is-primary">
+                    press ENTER to create the new project
+                  </p>
+                )}
               </div>
             </form>
           </div>
           <div className="home--project-panel-column">
-            <ProjectPanel projectId={selectedProject} setFetchProjectsRequest={setFetchProjectsRequest} />
+            <ProjectPanel
+              projectId={selectedProject}
+              setFetchProjectsRequest={setFetchProjectsRequest}
+            />
           </div>
         </div>
       </div>

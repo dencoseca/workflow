@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import HeaderLoggedOut from './HeaderLoggedOut'
 import HeaderLoggedIn from './HeaderLoggedIn'
-import StateContext from '../StateContext'
+import StateContext from '../context/StateContext'
 
 function Header() {
   const appState = useContext(StateContext)

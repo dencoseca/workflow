@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import StateContext from '../StateContext'
-import DispatchContext from '../DispatchContext'
+import StateContext from '../context/StateContext'
+import DispatchContext from '../context/DispatchContext'
 
 function HeaderLoggedIn() {
   const appState = useContext(StateContext)
