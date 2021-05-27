@@ -1,0 +1,20 @@
+
+.task-inline-form {
+  width: 100%;
+
+  &--select {
+    height: 2.5rem;
+    border: none;
+    font-size: 1rem;
+    color: rgb(147, 147, 147);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &--button {
+    display: flex;
+    align-items: center;
+  }
+}

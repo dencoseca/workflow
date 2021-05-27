@@ -1,0 +1,42 @@
+// FLOATING ALERTS
+.floating-alert {
+  font-weight: bold;
+  display: none;
+  position: absolute;
+  z-index: 999;
+  top: 55px;
+  left: 50%;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.06);
+  transform: translateX(-50%);
+  animation: floatingAlert ease-in 5s forwards;
+
+  &:last-of-type {
+    display: block;
+  }
+}
+
+@keyframes floatingAlert {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) scale(1.2);
+  }
+
+  9% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+  }
+
+  91% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) scale(1.2);
+  }
+}

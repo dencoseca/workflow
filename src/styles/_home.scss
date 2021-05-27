@@ -1,0 +1,58 @@
+.home {
+  margin-top: 100px;
+
+  @include lgTablet {
+    margin-top: 50px;
+  }
+
+  &--project-list-container {
+    display: flex;
+    width: 100%;
+
+    @include lgTablet {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &--project-list-column {
+    width: 25%;
+
+    @include lgTablet {
+      width: 100%;
+    }
+
+    @include smTablet {
+      padding: 0 30px;
+    }
+
+    @include phone {
+      padding: 0 15px;
+    }
+
+    form {
+      padding-right: 20px;
+
+      @include smTablet {
+        padding-right: 0;
+      }
+    }
+  }
+
+  &--project-panel-column {
+    width: 75%;
+
+    @include lgTablet {
+      width: 100%;
+      margin-top: 50px;
+    }
+
+    @include smTablet {
+      padding: 0 30px;
+    }
+
+    @include phone {
+      padding: 0 15px;
+    }
+  }
+}

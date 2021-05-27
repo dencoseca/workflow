@@ -1,0 +1,18 @@
+.navbar-brand {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.header-logged-out {
+  display: flex;
+  align-items: center;
+
+  form {
+    display: flex;
+  }
+}
+
+.header-logged-in {
+  display: flex;
+  align-items: center;
+}

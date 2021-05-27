@@ -1,0 +1,71 @@
+.project-panel {
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 10px 5px rgba(0, 0, 0, 0.06);
+  height: fit-content;
+  min-height: 500px;
+
+  &--no-project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 500px;
+    width: 100%;
+    padding: 40px;
+    text-align: center;
+  }
+
+  &--project {
+    padding: 40px 30px 30px 45px;
+  }
+
+  &--project-title-container {
+    margin-bottom: 25px;
+    display: flex;
+
+    .icon {
+      margin-top: 10px;
+      transition: all 0.1s ease-in;
+
+      &:hover {
+        color: hsl(204, 86%, 53%);
+      }
+    }
+  }
+
+  &--project-title {
+    margin-bottom: 0 !important;
+
+    &-edit-input {
+      padding: 0;
+      margin: 0;
+      height: 2.25rem;
+      width: 500px; // FIND A RESPONSIVE WAY TO DO THIS!
+    }
+  }
+
+  &--tasks {
+    margin-bottom: 15px;
+  }
+
+  &--project-form-highlight {
+    border: 1px solid hsl(171, 100%, 41%);
+    border-radius: 5px;
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    top: -6px;
+    left: -16px;
+    width: 70%;
+
+    &-undo {
+      transition: all 0.1s ease-in;
+    }
+
+    &-undo:hover {
+      color: hsl(348, 100%, 61%);
+    }
+  }
+}

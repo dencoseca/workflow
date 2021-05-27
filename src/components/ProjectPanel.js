@@ -30,9 +30,17 @@ function ProjectPanel(props) {
       setProjectIsLoading(true)
       async function fetchProject() {
         try {
-          const response = await axios.post('/project/findone', { projectId }, { cancelToken: ourRequest.token })
+          const response = await axios.post(
+            '/project/findone',
+            { projectId },
+            { cancelToken: ourRequest.token }
+          )
           if (response.data.errorMessage) {
-            appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+            appDispatch({
+              type: 'flashMessage',
+              value: response.data.errorMessage,
+              color: 'danger',
+            })
           } else {
             setProjectTasks(response.data.tasks)
             setProjectName(response.data.name)
@@ -63,13 +71,26 @@ function ProjectPanel(props) {
         try {
           const response = await axios.post(
             '/task/create',
-            { projectId, value: taskValue.trim(), category: taskCategory, status: taskStatus },
+            {
+              projectId,
+              value: taskValue.trim(),
+              category: taskCategory,
+              status: taskStatus,
+            },
             { cancelToken: ourRequest.token }
           )
           if (response.data.errorMessage) {
-            appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+            appDispatch({
+              type: 'flashMessage',
+              value: response.data.errorMessage,
+              color: 'danger',
+            })
           } else {
-            appDispatch({ type: 'flashMessage', value: 'Task successfully created', color: 'success' })
+            appDispatch({
+              type: 'flashMessage',
+              value: 'Task successfully created',
+              color: 'success',
+            })
             setProjectTasks(prev => [...prev, response.data])
             setTaskValue('')
             setTaskCategory('Category')
@@ -91,11 +112,23 @@ function ProjectPanel(props) {
   function handleNewTaskRequest(e) {
     e.preventDefault()
     if (!taskValue) {
-      appDispatch({ type: 'flashMessage', value: 'Task value cannot be blank', color: 'danger' })
+      appDispatch({
+        type: 'flashMessage',
+        value: 'Task value cannot be blank',
+        color: 'danger',
+      })
     } else if (taskCategory === 'Category') {
-      appDispatch({ type: 'flashMessage', value: 'Task category cannot be blank', color: 'danger' })
+      appDispatch({
+        type: 'flashMessage',
+        value: 'Task category cannot be blank',
+        color: 'danger',
+      })
     } else if (taskStatus === 'Status') {
-      appDispatch({ type: 'flashMessage', value: 'Task Status cannot be blank', color: 'danger' })
+      appDispatch({
+        type: 'flashMessage',
+        value: 'Task Status cannot be blank',
+        color: 'danger',
+      })
     } else {
       setNewTaskRequest(prev => prev + 1)
     }
@@ -124,13 +157,24 @@ function ProjectPanel(props) {
         try {
           const response = await axios.post(
             '/project/update',
-            { projectId: props.projectId, project: { name: projectName.trim() } },
+            {
+              projectId: props.projectId,
+              project: { name: projectName.trim() },
+            },
             { cancelToken: ourRequest.token }
           )
           if (response.data.errorMessage) {
-            appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+            appDispatch({
+              type: 'flashMessage',
+              value: response.data.errorMessage,
+              color: 'danger',
+            })
           } else {
-            appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
+            appDispatch({
+              type: 'flashMessage',
+              value: response.data.successMessage,
+              color: 'success',
+            })
             setProjectName(response.data.updatedProject.name)
             setEditingProjectName(false)
             props.setFetchProjectsRequest(prev => prev + 1)
@@ -161,12 +205,26 @@ function ProjectPanel(props) {
 
     async function deleteTask() {
       try {
-        const response = await axios.post('/task/delete', { taskId: clickedTaskId }, { cancelToken: ourRequest.token })
+        const response = await axios.post(
+          '/task/delete',
+          { taskId: clickedTaskId },
+          { cancelToken: ourRequest.token }
+        )
         if (response.data.errorMessage) {
-          appDispatch({ type: 'flashMessage', value: response.data.errorMessage, color: 'danger' })
+          appDispatch({
+            type: 'flashMessage',
+            value: response.data.errorMessage,
+            color: 'danger',
+          })
         } else {
-          appDispatch({ type: 'flashMessage', value: response.data.successMessage, color: 'success' })
-          setProjectTasks(prev => prev.filter(task => task._id !== clickedTaskId))
+          appDispatch({
+            type: 'flashMessage',
+            value: response.data.successMessage,
+            color: 'success',
+          })
+          setProjectTasks(prev =>
+            prev.filter(task => task._id !== clickedTaskId)
+          )
         }
       } catch (err) {
         console.log(err, 'There was a problem or the request was cancelled.')
@@ -201,15 +259,27 @@ function ProjectPanel(props) {
                         </div>
                       </div>
                     </form>
-                    <i onClick={e => handleUndoEditClick()} className="project-panel--project-form-highlight-undo fa fa-undo ml-3"></i>
+                    <i
+                      onClick={e => handleUndoEditClick()}
+                      className="project-panel--project-form-highlight-undo fa fa-undo ml-3"
+                    ></i>
                   </div>
-                  {projectName.trim() !== initialProjectName && <p className="help is-primary mt-2">press ENTER to confirm edit</p>}
+                  {projectName.trim() !== initialProjectName && (
+                    <p className="help is-primary mt-2">
+                      press ENTER to confirm edit
+                    </p>
+                  )}
                 </>
               ) : (
                 <>
-                  <h2 className="project-panel--project-title title is-3">{projectName}</h2>
+                  <h2 className="project-panel--project-title title is-3">
+                    {projectName}
+                  </h2>
                   <span className="icon ml-3">
-                    <i onClick={e => setEditingProjectName(true)} className="fa fa-edit"></i>
+                    <i
+                      onClick={e => setEditingProjectName(true)}
+                      className="fa fa-edit"
+                    ></i>
                   </span>
                 </>
               )}
@@ -217,7 +287,12 @@ function ProjectPanel(props) {
             <div className="project-panel--tasks">
               {projectTasks.length > 0 &&
                 projectTasks.map(task => (
-                  <Task key={task._id} task={task} handleDeleteTaskClick={handleDeleteTaskClick} setProjectTasks={setProjectTasks} />
+                  <Task
+                    key={task._id}
+                    task={task}
+                    handleDeleteTaskClick={handleDeleteTaskClick}
+                    setProjectTasks={setProjectTasks}
+                  />
                 ))}
             </div>
             <TaskInlineForm
@@ -236,7 +311,9 @@ function ProjectPanel(props) {
         )
       ) : (
         <div className="project-panel--no-project">
-          <h3 className="subtitle is-4">Choose a project or create a new one to start adding tasks...</h3>
+          <h3 className="subtitle is-4">
+            Choose a project or create a new one to start adding tasks...
+          </h3>
         </div>
       )}
     </div>

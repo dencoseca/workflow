@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import 'bulma/css/bulma.css'
-import './index.scss'
+import './styles/main.scss'
 import App from './App'
 // import './debug.css' // Uncoment to debug CSS
 import axios from 'axios'

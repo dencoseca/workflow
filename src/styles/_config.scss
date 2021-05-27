@@ -1,0 +1,18 @@
+// Media Queries
+@mixin lgTablet {
+  @media (max-width: 1216px) {
+    @content;
+  }
+}
+
+@mixin smTablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin phone {
+  @media (max-width: 768px) {
+    @content;
+  }
+}

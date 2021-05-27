@@ -1,0 +1,47 @@
+.task {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+
+  &--value {
+    margin-right: auto;
+  }
+
+  &--edit {
+    cursor: pointer;
+    transition: all 0.1s ease-in;
+
+    &:hover {
+      color: hsl(204, 86%, 53%);
+    }
+  }
+
+  &--delete {
+    cursor: pointer;
+    height: inherit;
+    padding-top: 3px;
+    transition: all 0.1s ease-in;
+
+    &:hover {
+      color: hsl(348, 100%, 61%);
+    }
+  }
+
+  &--inline-form-highlight {
+    border: 1px solid hsl(171, 100%, 41%);
+    border-radius: 5px;
+    padding: 5px 15px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+
+    &-undo {
+      position: relative;
+      transition: all 0.1s ease-in;
+
+      &:hover {
+        color: hsl(348, 100%, 61%);
+      }
+    }
+  }
+}

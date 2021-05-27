@@ -1,0 +1,32 @@
+.project-list {
+  &--item {
+    font-weight: bold;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.1s ease-in;
+
+    &:hover {
+      .project-list--item-delete {
+        visibility: visible;
+      }
+    }
+    .icon {
+      transition: all 0.1s ease-in;
+    }
+
+    .icon:hover + .project-list--item-name {
+      color: hsl(348, 100%, 61%);
+    }
+  }
+
+  &--item-name {
+    cursor: pointer;
+  }
+
+  &--item-delete {
+    cursor: pointer;
+    visibility: hidden;
+  }
+}
