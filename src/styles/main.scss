@@ -1,15 +1,20 @@
+// RESET
 @import 'normalize';
+
+// CONFIG
 @import 'config';
+
+// COMPONENTS
+@import 'header';
+@import 'footer';
+@import 'home';
+@import 'welcome';
 @import 'floating-alerts';
 @import 'loading-dots';
 @import 'project-panel';
 @import 'project-list-item';
 @import 'task-inline-form';
 @import 'task';
-@import 'header';
-@import 'footer';
-@import 'welcome';
-@import 'home';
 
 * {
   margin: 0;
