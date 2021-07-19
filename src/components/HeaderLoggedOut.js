@@ -68,7 +68,7 @@ function HeaderLoggedOut() {
             type="text"
             name="username"
             placeholder="username"
-          ></input>
+          />
         </div>
         <div className="control mr-2">
           <input
@@ -78,7 +78,7 @@ function HeaderLoggedOut() {
             type="password"
             name="password"
             placeholder="password"
-          ></input>
+          />
         </div>
       </form>
       <button onClick={e => setLoginRequestCount(prev => prev + 1)} className="button is-primary has-text-weight-bold">
