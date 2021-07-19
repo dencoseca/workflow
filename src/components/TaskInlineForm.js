@@ -22,7 +22,7 @@ function TaskInlineForm(props) {
             type="text"
             placeholder={props.inputPlaceholderText}
             ref={updateTaskInputEl}
-          ></input>
+          />
           <div className="field is-narrow">
             <div className="control">
               <select className="task-inline-form--select" value={props.taskCategory} onChange={e => props.setTaskCategory(e.target.value)}>
